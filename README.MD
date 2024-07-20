@@ -1,5 +1,8 @@
 PoEssence is a tool that combines information from websites poe.ninja and pathofexile.com/trade (Bulk Item Exchange).
 
+To run this tool please install Java JDK, e.g.
+https://download.oracle.com/java/22/archive/jdk-22.0.1_windows-x64_bin.exe
+
 General features:
 
 Shortcuts:
