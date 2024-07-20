@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" minHeight="700.0" minWidth="500.0" prefHeight="784.0" prefWidth="891.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.dscorp.poessence.windows.GraphsController">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+  </padding>
+   <children>
+      <LineChart fx:id="chart" VBox.vgrow="ALWAYS">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <HBox prefHeight="33.0" prefWidth="851.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onCreateGraphButtonClick" text="Create graph" />
+            <ChoiceBox fx:id="itemChoiceBox" prefWidth="150.0">
+               <HBox.margin>
+                  <Insets left="40.0" />
+               </HBox.margin>
+            </ChoiceBox>
+         </children>
+      </HBox>
+      <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0">
+         <content>
+            <VBox fx:id="forChecks" prefHeight="200.0" prefWidth="100.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

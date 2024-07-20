@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" minHeight="700.0" minWidth="500.0" prefHeight="784.0" prefWidth="891.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.dscorp.poessence.windows.NoteController">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+  </padding>
+   <children>
+      <TextArea fx:id="notepad" prefHeight="629.0" prefWidth="851.0" />
+      <Button fx:id="saveButton" onAction="#onSaveButtonClick" mnemonicParsing="false" text="Save" />
+   </children>
+</VBox>
