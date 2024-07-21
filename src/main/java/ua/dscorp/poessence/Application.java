@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.json.JSONArray;
@@ -44,6 +45,12 @@ public class Application extends javafx.application.Application {
 
         Font.loadFont(getClass().getResourceAsStream("/ua/dscorp/poessence/fonts/Fontin-Italic.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream("/ua/dscorp/poessence/fonts/Fontin-Regular.ttf"), 12);
+
+        InputStream icon1 = Application.class.getResourceAsStream("/ua/dscorp/poessence/icons/Regal_Orb_16.png");
+        InputStream icon2 = Application.class.getResourceAsStream("/ua/dscorp/poessence/icons/Regal_Orb_32.png");
+        InputStream icon3 = Application.class.getResourceAsStream("/ua/dscorp/poessence/icons/Regal_Orb_64.png");
+        InputStream icon4 = Application.class.getResourceAsStream("/ua/dscorp/poessence/icons/Regal_Orb_128.png");
+        stage.getIcons().addAll(new Image(icon1), new Image(icon2), new Image(icon3), new Image(icon4));
 
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("main-window-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);

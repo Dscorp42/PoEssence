@@ -22,9 +22,13 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
+      - name: Copy icon file
+        run: |
+          mkdir icons
+          copy src\main\resources\ua\dscorp\poessence\icons\Regal_Orb.ico icons\
+
       - name: Package with jpackage
-        run: jpackage --input target --name PoEssence --main-jar PoEssence-1.0.jar --main-class ua.dscorp.poessence.GUIStarter --type exe --dest target --app-version 1.0
-          
+        run: jpackage --input target --name PoEssence --main-jar PoEssence-1.0.jar --main-class ua.dscorp.poessence.GUIStarter --type exe --dest target --app-version 1.0 --icon icons\Regal_Orb.ico
 
       - name: Upload JAR Artifact
         uses: actions/upload-artifact@v4
