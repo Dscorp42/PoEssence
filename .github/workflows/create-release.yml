@@ -22,7 +22,7 @@ jobs:
           git fetch --tags
           
           # Get the latest tag matching the pattern v*.*.*
-          latest_tag=$(git tag -l 'v*.*.*' | sort -V | tail -n 1)
+          latest_tag=$(git tag -l 'v*' | sort -V | tail -n 1)
           
           # Output the tag
           echo "Latest tag: $latest_tag"
