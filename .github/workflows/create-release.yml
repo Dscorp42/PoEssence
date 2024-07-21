@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Fetch the latest tag
         id: fetch-tag
@@ -29,14 +29,16 @@ jobs:
           echo "RELEASE_TAG=$latest_tag" >> $GITHUB_ENV
 
       - name: Download ZIP artifacts from the previous build
-        uses: actions/download-artifact@v3
+        uses: dawidd6/action-download-artifact@v6
         with:
+          workflow: workflow_name.yml
           name: poessence-jar
           path: ./artifacts
 
       - name: Download second ZIP artifact from the previous build
-        uses: actions/download-artifact@v3
+        uses: dawidd6/action-download-artifact@v6
         with:
+          workflow: workflow_name.yml
           name: poessence-installer
           path: ./artifacts
 
