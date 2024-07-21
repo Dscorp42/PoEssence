@@ -121,6 +121,11 @@ public final class MainWindowController {
 
         perTableActivities();
 
+        accountName.textProperty().addListener((observableValue, oldVal, newVal) -> {
+            tableView.getItems().forEach(line -> line.getBulkItems().forEach(bulkItem -> bulkItem.setYou(bulkItem.getName().equals(newVal))));
+            tableView.refresh();
+        });
+
         tabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldTab, newTab) -> {
             if (newTab != null) {
                 try {
