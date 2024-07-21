@@ -95,41 +95,40 @@ public class Application extends javafx.application.Application {
         if (file.exists()) {
             Integer currentVersion;
             try {
-            currentVersion = mapper.readValue(file, mapper.getTypeFactory().constructType(Integer.class));
+                currentVersion = mapper.readValue(file, mapper.getTypeFactory().constructType(Integer.class));
             }
             catch (IOException e) {
                 System.out.println("can't get current version " + e.getMessage());
                 return;
             }
             if (currentVersion < lastVersion) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Launch download and update? To finish update app will close.", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-                alert.showAndWait();
-                if (alert.getResult() == ButtonType.YES) {
-                    try {
-                    mapper.writeValue(file, lastVersion);
-                    downloadAndReplace();
-                    }
-                    catch (IOException e) {
-                        System.out.println("can't download and update " + e.getMessage());
-                        return;
-                    }
-                    Platform.exit();
-                    try {
-                        Thread.sleep(2000); // Wait for 2 seconds
-                    } catch (InterruptedException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    System.exit(0);
-                }
+                update(mapper, file, lastVersion);
             }
         }
         else {
+            update(mapper, file, lastVersion);
+        }
+    }
+
+    private static void update(ObjectMapper mapper, File file, Integer lastVersion) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Launch download and update? To finish update app will close.", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
             try {
             mapper.writeValue(file, lastVersion);
+            downloadAndReplace();
             }
             catch (IOException e) {
-                System.out.println("can't save new version " + e.getMessage());
+                System.out.println("can't download and update " + e.getMessage());
+                return;
             }
+            Platform.exit();
+            try {
+                Thread.sleep(2000); // Wait for 2 seconds
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+            System.exit(0);
         }
     }
 
