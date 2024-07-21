@@ -24,12 +24,12 @@ jobs:
 
       - name: Package with jpackage
         run: |
-          jpackage --input target \
-                   --name PoEssence \
-                   --main-jar poessence.jar \
-                   --main-class ua.dscorp.poessence.GUIStarter \
-                   --type exe \
-                   --dest target \
+          jpackage --input target\
+                   --name PoEssence\
+                   --main-jar poessence.jar\
+                   --main-class ua.dscorp.poessence.GUIStarter\
+                   --type exe\
+                   --dest target\
                    --app-version 1.2
           
 
