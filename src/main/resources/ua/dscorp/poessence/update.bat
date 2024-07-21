@@ -25,5 +25,4 @@ move /y PoEssence.jar app/PoEssence-1.0.jar
 
 echo Update completed.
 
-PoEssence.exe
-exit
+start "" /b "PoEssence.exe" & exit
