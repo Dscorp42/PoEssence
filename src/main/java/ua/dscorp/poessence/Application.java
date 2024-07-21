@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import ua.dscorp.poessence.loader.PoeNinjaLoader;
+import ua.dscorp.poessence.util.AdminCheck;
 import ua.dscorp.poessence.util.PersistenceHandler;
 import ua.dscorp.poessence.windows.MainWindowController;
 
@@ -31,8 +32,11 @@ public class Application extends javafx.application.Application {
     public static final String SETTINGS_FILE = "PoEssence_prefs.conf";
     public static final String VERSION_FILE = "PoEssence_version.conf";
     public static final String TOOL_NAME = "PoEssence";
+    public static final String APP_DATA_FOLDER = System.getenv("APPDATA") + "\\" + TOOL_NAME;
+
     private static final String DOWNLOAD_URL = "https://github.com/Dscorp42/PoEssence/releases/latest/download/PoEssence.jar";
     private static final String TAGS_URL = "https://api.github.com/repos/Dscorp42/PoEssence/tags";
+
 
     private ScheduledExecutorService scheduler;
 
@@ -82,7 +86,7 @@ public class Application extends javafx.application.Application {
     }
 
     private void checkForUpdates() {
-        File file = new File(VERSION_FILE);
+        File file = new File(APP_DATA_FOLDER, VERSION_FILE);
         Integer lastVersion;
         try {
             lastVersion = getLastVersion();
@@ -111,7 +115,8 @@ public class Application extends javafx.application.Application {
     }
 
     private static void update(ObjectMapper mapper, File file, Integer lastVersion) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Launch download and update? To finish update app will close.", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Launch download and update? " +
+                "Requires Run as Administrator.", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
             try {
@@ -159,7 +164,7 @@ public class Application extends javafx.application.Application {
         HttpURLConnection connection = (HttpURLConnection) new URL(DOWNLOAD_URL).openConnection();
         connection.setRequestMethod("GET");
 
-        File tempFile = new File("PoEssence.jar");
+        File tempFile = new File(APP_DATA_FOLDER, "PoEssence.jar");
         try (InputStream in = connection.getInputStream(); FileOutputStream out = new FileOutputStream(tempFile)) {
             byte[] buffer = new byte[1024];
             int bytesRead;
@@ -212,7 +217,8 @@ public class Application extends javafx.application.Application {
             scheduler.shutdown();
         }
         savePresets();
-        shutdownAll();
+        if (AdminCheck.isRunningAsAdmin())
+            shutdownAll();
     }
 
     private void shutdownAll() throws IOException {
@@ -224,7 +230,7 @@ public class Application extends javafx.application.Application {
 
     private void loadPresets() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        File file = new File(SETTINGS_FILE);
+        File file = new File(APP_DATA_FOLDER, SETTINGS_FILE);
         if (!file.exists()) {
             return;
         }
@@ -254,7 +260,7 @@ public class Application extends javafx.application.Application {
                 + ";minEssenceTier=" + PersistenceHandler.minEssenceTierPers.getText()
                 + ";constantUpdate=" + PersistenceHandler.constantUpdatePers.isSelected()
                 + ";isStyleApplied=" + isStyleApplied;
-        File file = new File(SETTINGS_FILE);
+        File file = new File(APP_DATA_FOLDER, SETTINGS_FILE);
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(file, prefs);
     }

@@ -9,6 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.StringJoiner;
 
+import static ua.dscorp.poessence.Application.APP_DATA_FOLDER;
+
 public class NoteController {
 
     @FXML
@@ -25,8 +27,8 @@ public class NoteController {
 
     public void loadFile() throws IOException {
         StringJoiner result = new StringJoiner("\n");
-        Files.createDirectories(Paths.get("./notes/"));
-        File file = new File("./notes/" + detailsId + ".txt");
+        Files.createDirectories(Paths.get(APP_DATA_FOLDER + "/notes/"));
+        File file = new File(APP_DATA_FOLDER, "notes/" + detailsId + ".txt");
         if (!file.exists()) {
             return;
         }
@@ -49,7 +51,7 @@ public class NoteController {
 
     @FXML
     protected void onSaveButtonClick() {
-        File file = new File("./notes/" + detailsId + ".txt");
+        File file = new File(APP_DATA_FOLDER, "notes/" + detailsId + ".txt");
         try (FileWriter fileWriter = new FileWriter(file);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 

@@ -27,6 +27,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+import static ua.dscorp.poessence.Application.APP_DATA_FOLDER;
 import static ua.dscorp.poessence.Application.TOOL_NAME;
 import static ua.dscorp.poessence.windows.MainWindowController.itemsStore;
 import static ua.dscorp.poessence.windows.MainWindowController.task;
@@ -106,7 +107,7 @@ public final class PoeNinjaLoader {
                     }
                 }
 
-                File file = new File("./filter/" + mainWindowController.itemType.getName() + ".json");
+                File file = new File(APP_DATA_FOLDER, "filter/" + mainWindowController.itemType.getName() + ".json");
                 boolean isFirstLaunch = !file.exists();
                 // In case of extended launch, window with poe.ninja data to be opened, list of items to load chosen and filtered, and saved for future usages.
                 if (isExtendedLaunch || isFirstLaunch) {

@@ -18,6 +18,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+import static ua.dscorp.poessence.Application.APP_DATA_FOLDER;
+
 public class FilterController {
 
     @FXML
@@ -85,10 +87,10 @@ public class FilterController {
     }
 
     public void loadFile() throws IOException {
-        Files.createDirectories(Paths.get("./filter/"));
+        Files.createDirectories(Paths.get(APP_DATA_FOLDER + "/filter/"));
 
         ObjectMapper mapper = new ObjectMapper();
-        File file = new File("./filter/" + itemType + ".json");
+        File file = new File(APP_DATA_FOLDER, "./filter/" + itemType + ".json");
         if (!file.exists()) {
             return;
         }
@@ -102,7 +104,7 @@ public class FilterController {
     @FXML
     protected void onSaveButtonClick() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        File file = new File("./filter/" + itemType + ".json");
+        File file = new File(APP_DATA_FOLDER, "./filter/" + itemType + ".json");
         List<SimpleLine> tableContent = getTableContent();
         mapper.writeValue(file, tableContent);
 

@@ -30,8 +30,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static ua.dscorp.poessence.Application.TOOL_NAME;
-import static ua.dscorp.poessence.Application.isStyleApplied;
+import static ua.dscorp.poessence.Application.*;
 import static ua.dscorp.poessence.util.PersistenceHandler.loadPersistenceSettings;
 import static ua.dscorp.poessence.util.UtilClass.*;
 import static ua.dscorp.poessence.util.TableConfigurator.*;
@@ -373,7 +372,7 @@ public final class MainWindowController {
 
     private void loadSnapshot(String fileName) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        File file = new File(SNAPSHOTS_FOLDER + fileName);
+        File file = new File(APP_DATA_FOLDER, SNAPSHOTS_FOLDER + fileName);
         try {
             List<Line> lines = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, Line.class));
             lines.forEach(line -> line.setNinjaPriceMultiplier(100));
@@ -398,9 +397,9 @@ public final class MainWindowController {
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
             List<String> files = getTableContentFileNames(itemType);
-            Files.createDirectories(Path.of(SNAPSHOTS_FOLDER + "old/"));
+            Files.createDirectories(Path.of(APP_DATA_FOLDER, SNAPSHOTS_FOLDER + "old/"));
             for (String file : files) {
-                Files.move(Path.of(SNAPSHOTS_FOLDER + file), Path.of(SNAPSHOTS_FOLDER + "old/" + file), StandardCopyOption.REPLACE_EXISTING);
+                Files.move(Path.of(APP_DATA_FOLDER, SNAPSHOTS_FOLDER + file), Path.of(APP_DATA_FOLDER, SNAPSHOTS_FOLDER + "old/" + file), StandardCopyOption.REPLACE_EXISTING);
             }
             loadSnapshotChoices(itemType);
         }

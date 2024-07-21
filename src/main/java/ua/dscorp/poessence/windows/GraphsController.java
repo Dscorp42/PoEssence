@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import static ua.dscorp.poessence.Application.APP_DATA_FOLDER;
 import static ua.dscorp.poessence.util.UtilClass.SNAPSHOTS_FOLDER;
 import static ua.dscorp.poessence.util.UtilClass.getTableContentFileNames;
 
@@ -56,7 +57,7 @@ public class GraphsController {
         divSingleValue.clear();
         divBulkValue.clear();
         allDetails.clear();
-        List<File> files = getTableContentFileNames(ItemType.valueOf(itemChoiceBox.getValue())).stream().map(s -> new File(SNAPSHOTS_FOLDER + s)).toList();
+        List<File> files = getTableContentFileNames(ItemType.valueOf(itemChoiceBox.getValue())).stream().map(s -> new File(APP_DATA_FOLDER, SNAPSHOTS_FOLDER + s)).toList();
         List<XYChart.Series<String, Double>> seriesList = new ArrayList<>();
 
         for (File file : files) {
