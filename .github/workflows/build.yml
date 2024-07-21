@@ -1,0 +1,49 @@
+name: Build and Package
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Package with jpackage
+        run: |
+          jpackage --input target \
+                   --name PoEssence \
+                   --main-jar poessence.jar \
+                   --main-class ua.dscorp.poessence.GUIStarter \
+                   --type exe \
+                   --dest target \
+                   --app-version 1.2
+          
+
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: poessence-jar
+          path: target/poessence.jar
+
+      - name: Upload EXE Installer
+        uses: actions/upload-artifact@v2
+        with:
+          name: myapp-installer
+          path: target/PoEssence-1.2.exe
