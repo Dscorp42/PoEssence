@@ -44,3 +44,6 @@ build/
 /mvnw
 /mvnw.cmd
 /PoEssence_prefs.conf
+/PoEssence_version.conf
+/update.bat
+/app/PoEssence-1.0.jar

@@ -7,6 +7,7 @@ module ua.dscorp.poessence {
     requires org.kordamp.ikonli.javafx;
     requires eu.hansolo.tilesfx;
     requires com.fasterxml.jackson.databind;
+    requires org.json;
 
     opens ua.dscorp.poessence to javafx.fxml;
     exports ua.dscorp.poessence;

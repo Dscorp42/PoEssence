@@ -45,6 +45,7 @@
 /* Style the tab header area */
 .tab-pane .tab-header-area {
     -fx-background-color: #414a4c;
+    -fx-min-height: 50px; /* Minimum height for the tab header area */
 }
 
 /* Style the tab header (selected tab) */
@@ -68,12 +69,8 @@
 
 .tab {
     -fx-font-size: 16px;
+    -fx-pref-height: 40px;
 }
-
-.tab-pane .tab-header-area {
--fx-min-height: 54px;
-}
-
 
 /* Style the background and text color of the TextField */
 .text-field {

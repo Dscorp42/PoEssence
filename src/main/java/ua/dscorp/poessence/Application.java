@@ -1,17 +1,21 @@
 package ua.dscorp.poessence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import ua.dscorp.poessence.loader.PoeNinjaLoader;
 import ua.dscorp.poessence.util.PersistenceHandler;
 import ua.dscorp.poessence.windows.MainWindowController;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.*;
+import java.net.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -24,7 +28,10 @@ import java.util.concurrent.TimeUnit;
 public class Application extends javafx.application.Application {
 
     public static final String SETTINGS_FILE = "PoEssence_prefs.conf";
+    public static final String VERSION_FILE = "PoEssence_version.conf";
     public static final String TOOL_NAME = "PoEssence";
+    private static final String DOWNLOAD_URL = "https://github.com/Dscorp42/PoEssence/releases/latest/download/PoEssence.jar";
+    private static final String TAGS_URL = "https://api.github.com/repos/Dscorp42/PoEssence/tags";
 
     private ScheduledExecutorService scheduler;
 
@@ -32,6 +39,8 @@ public class Application extends javafx.application.Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+
+        checkForUpdates();
 
         Font.loadFont(getClass().getResourceAsStream("/ua/dscorp/poessence/fonts/Fontin-Italic.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream("/ua/dscorp/poessence/fonts/Fontin-Regular.ttf"), 12);
@@ -64,6 +73,125 @@ public class Application extends javafx.application.Application {
         }, 60, 60 * 60, TimeUnit.SECONDS); // Every 1 hour
         stage.show();
     }
+
+    private void checkForUpdates() {
+        File file = new File(VERSION_FILE);
+        Integer lastVersion;
+        try {
+            lastVersion = getLastVersion();
+        }
+        catch (IOException e) {
+            System.out.println("can't get last version " + e.getMessage());
+            return;
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        if (file.exists()) {
+            Integer currentVersion;
+            try {
+            currentVersion = mapper.readValue(file, mapper.getTypeFactory().constructType(Integer.class));
+            }
+            catch (IOException e) {
+                System.out.println("can't get current version " + e.getMessage());
+                return;
+            }
+            if (currentVersion < lastVersion) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Launch download and update? To finish update app will close.", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.YES) {
+                    try {
+                    mapper.writeValue(file, lastVersion);
+                    downloadAndReplace();
+                    }
+                    catch (IOException e) {
+                        System.out.println("can't download and update " + e.getMessage());
+                        return;
+                    }
+                    Platform.exit();
+                    try {
+                        Thread.sleep(2000); // Wait for 2 seconds
+                    } catch (InterruptedException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    System.exit(0);
+                }
+            }
+        }
+        else {
+            try {
+            mapper.writeValue(file, lastVersion);
+            }
+            catch (IOException e) {
+                System.out.println("can't save new version " + e.getMessage());
+            }
+        }
+    }
+
+    private int getLastVersion() throws IOException {
+
+        HttpURLConnection connection = (HttpURLConnection) new URL(TAGS_URL).openConnection();
+        connection.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        JSONArray tags = new JSONArray(response.toString());
+        if (!tags.isEmpty()) {
+            // Assuming the first tag is the most recent one
+            JSONObject latestTag = tags.getJSONObject(0);
+            return Integer.parseInt(latestTag.getString("name").replace("v", "").replace(".", ""));
+        }
+
+        return 0;
+    }
+
+    private static void downloadAndReplace() throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL(DOWNLOAD_URL).openConnection();
+        connection.setRequestMethod("GET");
+
+        File tempFile = new File("PoEssence.jar");
+        try (InputStream in = connection.getInputStream(); FileOutputStream out = new FileOutputStream(tempFile)) {
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+            }
+        }
+
+        launchUpdater();
+    }
+
+    private static void launchUpdater() throws IOException {
+
+            String batchFilePath = "/ua/dscorp/poessence/update.bat";
+            extractResource(batchFilePath);
+
+            Runtime.getRuntime().exec("cmd /c start update.bat");
+    }
+
+    private static void extractResource(String resourcePath) throws IOException {
+        // Create a temporary file
+        File tempFile = new File("update.bat");
+
+        try (InputStream inputStream = Application.class.getResourceAsStream(resourcePath);
+             OutputStream outputStream = new FileOutputStream(tempFile)) {
+
+            if (inputStream == null) {
+                throw new IllegalArgumentException("Resource not found: " + resourcePath);
+            }
+
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, length);
+            }
+        }
+    }
+
 
     @Override
     public void stop() throws IOException {
