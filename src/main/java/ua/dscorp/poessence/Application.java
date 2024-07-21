@@ -164,7 +164,7 @@ public class Application extends javafx.application.Application {
         HttpURLConnection connection = (HttpURLConnection) new URL(DOWNLOAD_URL).openConnection();
         connection.setRequestMethod("GET");
 
-        File tempFile = new File(APP_DATA_FOLDER, "PoEssence.jar");
+        File tempFile = new File("PoEssence.jar");
         try (InputStream in = connection.getInputStream(); FileOutputStream out = new FileOutputStream(tempFile)) {
             byte[] buffer = new byte[1024];
             int bytesRead;
