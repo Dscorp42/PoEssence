@@ -15,6 +15,8 @@ To run PoEssence without installation, you need to have Java JDK installed. You 
 
 ## General Features
 
+Autoupdate and force shutdown of lsgged-out fetch tasks on exit is available if started from Administrator.
+
 ### Shortcuts
 
 - **Alt+Z/C** or **Alt+Left/Right Arrow**: Switches between adjacent snapshots on the current tab.
