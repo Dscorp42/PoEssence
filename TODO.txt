@@ -4,5 +4,3 @@
     - alarm for price anomalies
     - chaos buyout with min stock
     - oauth for in-game whisper
-
-3) release of installer and autoupdate

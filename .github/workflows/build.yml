@@ -28,7 +28,7 @@ jobs:
           copy src\main\resources\ua\dscorp\poessence\icons\Regal_Orb.ico icons\
 
       - name: Package with jpackage
-        run: jpackage --input target --name PoEssence --main-jar PoEssence-1.0.jar --main-class ua.dscorp.poessence.GUIStarter --type exe --dest target --app-version 1.0 --icon icons\Regal_Orb.ico --win-dir-chooser --win-menu --win-menu-group PoEssence --win-shortcut --win-shortcut-prompt
+        run: jpackage --input target --name PoEssence --main-jar PoEssence-1.0.jar --main-class ua.dscorp.poessence.GUIStarter --type exe --dest target --app-version 1.0 --icon icons\Regal_Orb.ico --win-dir-chooser --win-menu --win-menu-group PoEssence --win-shortcut --win-shortcut-prompt --win-shortcut-script runAsAdmin.bat
 
       - name: Upload JAR Artifact
         uses: actions/upload-artifact@v4

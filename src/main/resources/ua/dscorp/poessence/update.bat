@@ -6,7 +6,6 @@ set "appName=PoEssence.exe"
 :checkAppRunning
 set "appRunning=false"
 
-REM List the processes and check if the application is running
 for /f "tokens=1,*" %%a in ('tasklist /fi "imagename eq %appName%" /fo csv ^| findstr /i "%appName%"') do (
     set "appRunning=true"
 )

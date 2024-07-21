@@ -174,14 +174,14 @@ public class Application extends javafx.application.Application {
     private static void launchUpdater() throws IOException {
 
             String batchFilePath = "/ua/dscorp/poessence/update.bat";
-            extractResource(batchFilePath);
+            extractResource(batchFilePath, "update.bat");
 
             Runtime.getRuntime().exec("cmd /c start update.bat");
     }
 
-    private static void extractResource(String resourcePath) throws IOException {
+    private static void extractResource(String resourcePath, String fileName) throws IOException {
         // Create a temporary file
-        File tempFile = new File("update.bat");
+        File tempFile = new File(fileName);
 
         try (InputStream inputStream = Application.class.getResourceAsStream(resourcePath);
              OutputStream outputStream = new FileOutputStream(tempFile)) {
@@ -212,6 +212,14 @@ public class Application extends javafx.application.Application {
             scheduler.shutdown();
         }
         savePresets();
+        shutdownAll();
+    }
+
+    private void shutdownAll() throws IOException {
+        String batchFilePath = "/ua/dscorp/poessence/shutdown.bat";
+        extractResource(batchFilePath, "shutdown.bat");
+
+        Runtime.getRuntime().exec("cmd /c start shutdown.bat");
     }
 
     private void loadPresets() throws IOException {
