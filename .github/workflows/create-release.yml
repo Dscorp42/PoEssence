@@ -31,14 +31,14 @@ jobs:
       - name: Download ZIP artifacts from the previous build
         uses: dawidd6/action-download-artifact@v6
         with:
-          workflow: workflow_name.yml
+          workflow: build.yml
           name: poessence-jar
           path: ./artifacts
 
       - name: Download second ZIP artifact from the previous build
         uses: dawidd6/action-download-artifact@v6
         with:
-          workflow: workflow_name.yml
+          workflow: build.yml
           name: poessence-installer
           path: ./artifacts
 
