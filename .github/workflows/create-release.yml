@@ -1,0 +1,84 @@
+name: Create Release
+
+on:
+  #workflow_dispatch: # Allows you to manually trigger this workflow
+  # Uncomment the following lines if you want it to trigger automatically on new tags
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Fetch the latest tag
+        id: fetch-tag
+        run: |
+          # Fetch all tags from the remote
+          git fetch --tags
+          
+          # Get the latest tag matching the pattern v*.*.*
+          latest_tag=$(git tag -l 'v*.*.*' | sort -V | tail -n 1)
+          
+          # Output the tag
+          echo "Latest tag: $latest_tag"
+          echo "RELEASE_TAG=$latest_tag" >> $GITHUB_ENV
+
+      - name: Download ZIP artifacts from the previous build
+        uses: actions/download-artifact@v3
+        with:
+          name: poessence-jar
+          path: ./artifacts
+
+      - name: Download second ZIP artifact from the previous build
+        uses: actions/download-artifact@v3
+        with:
+          name: poessence-installer
+          path: ./artifacts
+
+      - name: Extract JAR from ZIP
+        run: |
+          unzip -o ./artifacts/poessence-jar.zip -d ./artifacts
+          mv ./artifacts/PoEssence-1.0.jar ./artifacts/PoEssence.jar
+
+      - name: Extract EXE from ZIP
+        run: |
+          unzip -o ./artifacts/poessence-installer.zip -d ./artifacts
+          mv ./artifacts/PoEssence-1.0.exe ./artifacts/PoEssence.exe
+
+      - name: Create GitHub Release
+        id: create-release
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const releaseTag = process.env.RELEASE_TAG;
+            const { data: release } = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: releaseTag,
+              name: `Release ${releaseTag}`,
+              body: `Release description for version ${releaseTag}`,
+              draft: false,
+              prerelease: false
+            });
+            return release;
+
+      - name: Upload JAR Artifact to the Release
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ./artifacts/PoEssence.jar
+          asset_name: PoEssence.jar
+          asset_content_type: application/java-archive
+
+      - name: Upload EXE Installer to the Release
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ./artifacts/PoEssence.exe
+          asset_name: PoEssence.exe
+          asset_content_type: application/x-mswinexe
