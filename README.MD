@@ -7,7 +7,7 @@
 1. Go to the [latest release](https://github.com/Dscorp42/PoEssence/releases/latest).
 2. Download and run `PoEssence.exe`.
 
-> **Note:** Only the installed version supports auto-updates.
+> **Note:** Only the installed version supports auto-updates and force shutdown.
 
 ## Prerequisites
 
