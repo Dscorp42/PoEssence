@@ -42,15 +42,11 @@ jobs:
           name: poessence-installer
           path: ./artifacts
 
-      - name: Extract JAR from ZIP
-        run: |
-          unzip -o ./artifacts/poessence-jar.zip -d ./artifacts
-          mv ./artifacts/PoEssence-1.0.jar ./artifacts/PoEssence.jar
+      - name: Rename
+        run: mv ./artifacts/PoEssence-1.0.jar ./artifacts/PoEssence.jar
 
-      - name: Extract EXE from ZIP
-        run: |
-          unzip -o ./artifacts/poessence-installer.zip -d ./artifacts
-          mv ./artifacts/PoEssence-1.0.exe ./artifacts/PoEssence.exe
+      - name: Rename 2
+        run: mv ./artifacts/PoEssence-1.0.exe ./artifacts/PoEssence.exe
 
       - name: Create GitHub Release
         id: create-release
