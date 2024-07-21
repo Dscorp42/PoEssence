@@ -11,7 +11,7 @@
 
 ## Prerequisites
 
-To run PoEssence, you need to have Java JDK installed. You can download it from [Oracle](https://download.oracle.com/java/22/archive/jdk-22.0.1_windows-x64_bin.exe).
+To run PoEssence without installation, you need to have Java JDK installed. You can download it from [Oracle](https://download.oracle.com/java/22/archive/jdk-22.0.1_windows-x64_bin.exe).
 
 ## General Features
 
