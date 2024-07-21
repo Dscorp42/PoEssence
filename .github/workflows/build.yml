@@ -23,17 +23,17 @@ jobs:
         run: mvn clean package
 
       - name: Package with jpackage
-        run: jpackage --input target --name PoEssence --main-jar poessence.jar --main-class ua.dscorp.poessence.GUIStarter --type exe --dest target --app-version 1.2
+        run: jpackage --input target --name PoEssence --main-jar PoEssence-1.0.jar --main-class ua.dscorp.poessence.GUIStarter --type exe --dest target --app-version 1.0
           
 
       - name: Upload JAR Artifact
         uses: actions/upload-artifact@v2
         with:
           name: poessence-jar
-          path: target/poessence.jar
+          path: target/PoEssence-1.0.jar
 
       - name: Upload EXE Installer
         uses: actions/upload-artifact@v2
         with:
           name: myapp-installer
-          path: target/PoEssence-1.2.exe
+          path: target/PoEssence-1.0.exe
