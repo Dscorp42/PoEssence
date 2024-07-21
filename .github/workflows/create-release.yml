@@ -51,6 +51,8 @@ jobs:
       - name: Create GitHub Release
         id: create-release
         uses: actions/github-script@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
           script: |
             const releaseTag = process.env.RELEASE_TAG;
