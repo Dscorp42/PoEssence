@@ -52,5 +52,5 @@ jobs:
       - name: upload binaries to release
         uses: softprops/action-gh-release@v1
         with:
-            tag: ${{ process.env.RELEASE_TAG }}
+            tag: ${{ RELEASE_TAG }}
             files: ./artifacts/PoEssence.jar
