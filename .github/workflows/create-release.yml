@@ -42,15 +42,21 @@ jobs:
           name: poessence-installer
           path: ./artifacts
 
-      - name: Rename
+      - name: Rename jar
         run: mv ./artifacts/PoEssence-1.0.jar ./artifacts/PoEssence.jar
 
-      - name: Rename 2
+      - name: Rename exe
         run: mv ./artifacts/PoEssence-1.0.exe ./artifacts/PoEssence.exe
 
 
-      - name: upload binaries to release
+      - name: upload jar to release
         uses: softprops/action-gh-release@v1
         with:
-            tag: ${{ env.RELEASE_TAG }}
+            tag_name: ${{ env.RELEASE_TAG }}
             files: ./artifacts/PoEssence.jar
+
+      - name: upload exe to release
+        uses: softprops/action-gh-release@v1
+        with:
+            tag_name: ${{ env.RELEASE_TAG }}
+            files: ./artifacts/PoEssence.exe
