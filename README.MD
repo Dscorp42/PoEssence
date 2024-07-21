@@ -52,9 +52,9 @@ To run PoEssence without installation, you need to have Java JDK installed. You 
   1. Requests data from poe.ninja for the active tab.
   2. Shows the filter window (on first use).
   3. Starts data requests to Poe trade. Due to the nature of the website, a delay between requests is needed and progress is estimated at the bottom of the window.
-  4-1. *(Optional)* If "Constant update" is checked before start:
+  4.1. (Optional) If "Constant update" is checked before start:
        - Continually repeats requests to Poe trade, using an extended delay after the initial fill.
-  4-2. *(Optional)* If "Constant update" is not checked:
+  4.2. (Optional) If "Constant update" is not checked:
        - Saves data as a snapshot.
 
 - **Refresh Prices (Tab) + Filter**:
