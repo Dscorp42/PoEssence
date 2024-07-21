@@ -41,3 +41,6 @@ build/
 /filter/
 /notes/
 /snapshots/
+/mvnw
+/mvnw.cmd
+/PoEssence_prefs.conf

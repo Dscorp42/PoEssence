@@ -1,0 +1,134 @@
+.root {
+-fx-background-color: #232323;
+}
+.table-view {
+-fx-background-color: #232323;
+}
+
+.table-row-cell {
+-fx-background-color: #232323;
+}
+
+.table-cell {
+-fx-background-color: #151515;
+-fx-text-fill: #e7c697;
+-fx-border-color: #555555;
+}
+
+/* Style the header row of the TableView */
+.table-view .column-header-background {
+    -fx-background-color: #414a4c; /* Background color of the header row */
+}
+
+
+.button {
+-fx-font-family: "Fontin";
+    -fx-background-color: #414a4c;
+    -fx-text-fill: #e7c697;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.label {
+-fx-font-family: "Fontin";
+    -fx-background-color: #232323;
+    -fx-text-fill: #e7c697;
+}
+
+.check-box {
+-fx-font-family: "Fontin";
+    -fx-background-color: #232323;
+    -fx-text-fill: #e7c697;
+}
+
+
+/* Style the tab header area */
+.tab-pane .tab-header-area {
+    -fx-background-color: #414a4c;
+}
+
+/* Style the tab header (selected tab) */
+.tab-pane .tab-header-area .tab:selected {
+    -fx-background-color: #444; /* Background color of selected tab */
+    -fx-text-base-color: #fff;  /* Text color of selected tab */
+}
+
+
+/* Style the tab header (hover tab) */
+.tab-pane .tab-header-area .tab:hover {
+    -fx-background-color: #666; /* Background color of selected tab */
+    -fx-text-base-color: #fff;  /* Text color of selected tab */
+}
+
+/* Style the tab header (unselected tab) */
+.tab-pane .tab-header-area .tab {
+    -fx-background-color: #777; /* Background color of unselected tab */
+    -fx-text-base-color: #000;  /* Text color of unselected tab */
+}
+
+.tab {
+    -fx-font-size: 16px;
+}
+
+.tab-pane .tab-header-area {
+-fx-min-height: 54px;
+}
+
+
+/* Style the background and text color of the TextField */
+.text-field {
+    -fx-background-color: #383838; /* Background color */
+    -fx-text-fill: #e7c697;
+    -fx-font-family: "Fontin";
+
+    -fx-prompt-text-fill: #7C7262; /* Prompt text color */
+}
+
+.button:hover {
+    -fx-background-color: #343b3c; /* Background color on hover */
+}
+.button:pressed {
+    -fx-background-color: #202526; /* Background color when pressed */
+}
+
+// Background color of the control itself
+.choice-box {
+  -fx-background-color: #414a4c;
+  -fx-mark-color: orange; // arrow color
+}
+// Background color of the whole context menu
+.choice-box .context-menu {
+-fx-background-color: #414a4c;
+}
+// Focused item background color in the list
+.choice-box .menu-item:focused {
+-fx-background-color: #202526;
+}
+
+.choice-box .label {
+-fx-font-family: "Fontin";
+    -fx-background-color: #414a4c;
+    -fx-text-fill: #e7c697;
+}
+
+.choice-box .label:hover {
+-fx-font-family: "Fontin";
+    -fx-background-color: #343b3c;
+    -fx-text-fill: #e7c697;
+}
+
+
+// Focused item background color in the list
+.choice-box .menu-item {
+-fx-background-color: #414a4c;
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: #232323;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #232323;
+}

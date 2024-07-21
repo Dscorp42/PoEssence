@@ -8,7 +8,7 @@
   <padding>
     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
   </padding>
-   <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+   <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" VBox.vgrow="ALWAYS">
      <tabs>
        <Tab text="Essences">
          <content>
@@ -72,7 +72,7 @@
       <children>
          <HBox>
             <children>
-               <Button fx:id="refreshButton" onAction="#onRefreshButtonClick" prefHeight="25.0" prefWidth="124.0" text="Refresh prices (tab)">
+               <Button fx:id="refreshButton" onAction="#onRefreshButtonClick" prefHeight="25.0" text="Refresh prices (tab)">
                    <tooltip>
                      <Tooltip text="Fetches all data from poe.ninja (fast) and then retrieves data from poe trade one by one (slow)." />
                   </tooltip>
@@ -95,7 +95,7 @@
                      <Tooltip text="Check it to automatically continue updates after first one, then click Refresh prices. Following updates will perform with increased delays to release pressure from trade site API. Every successful refresh is saved." />
                   </tooltip>
                   <HBox.margin>
-                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     <Insets bottom="17.0" left="17.0" right="17.0" top="17.0" />
                   </HBox.margin>
                </CheckBox>
                <CheckBox fx:id="hourlyUpdate" disable="true" mnemonicParsing="false" text="Hourly update (runs if other fetches are IDLE)">
@@ -103,7 +103,7 @@
                      <Tooltip text="If selected, after one hour delay and every next hour will perform Refresh prices (if not active at that moment) and save results." />
                   </tooltip>
                   <HBox.margin>
-                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     <Insets bottom="17.0" left="17.0" right="17.0" top="17.0" />
                   </HBox.margin>
                </CheckBox>
                <Button fx:id="refreshButtonAll" mnemonicParsing="false" onAction="#onRefreshAllButtonClick" text="Refresh all (no autosave)">
@@ -215,6 +215,11 @@
             </HBox.margin>
          </Button>
          <Button mnemonicParsing="false" onAction="#onAboutClick" text="About">
+            <HBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </HBox.margin>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#onStyleButtonClick" text="Style">
             <HBox.margin>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </HBox.margin>

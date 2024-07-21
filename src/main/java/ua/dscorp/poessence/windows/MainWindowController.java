@@ -31,6 +31,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static ua.dscorp.poessence.Application.TOOL_NAME;
+import static ua.dscorp.poessence.Application.isStyleApplied;
 import static ua.dscorp.poessence.util.PersistenceHandler.loadPersistenceSettings;
 import static ua.dscorp.poessence.util.UtilClass.*;
 import static ua.dscorp.poessence.util.TableConfigurator.*;
@@ -48,8 +49,6 @@ public final class MainWindowController {
     public TableView<Line> tableViewCurrency;
     @FXML
     public ChoiceBox<String> leagueChoiceBox;
-    @FXML
-    public ChoiceBox<String> itemChoiceBox;
     @FXML
     public ChoiceBox<String> snapshotChoiceBox;
     @FXML
@@ -356,6 +355,20 @@ public final class MainWindowController {
             return;
         }
         loadSnapshot(fileName);
+    }
+
+
+    @FXML
+    public void onStyleButtonClick() {
+
+        if (!isStyleApplied) {
+            tableView.getScene().getStylesheets().add(getClass().getResource("/ua/dscorp/poessence/styles.css").toExternalForm());
+            isStyleApplied = true;
+        }
+        else {
+            tableView.getScene().getStylesheets().remove(getClass().getResource("/ua/dscorp/poessence/styles.css").toExternalForm());
+            isStyleApplied = false;
+        }
     }
 
     private void loadSnapshot(String fileName) throws IOException {

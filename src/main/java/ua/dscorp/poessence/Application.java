@@ -3,6 +3,7 @@ package ua.dscorp.poessence;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import ua.dscorp.poessence.loader.PoeNinjaLoader;
 import ua.dscorp.poessence.util.PersistenceHandler;
@@ -27,16 +28,27 @@ public class Application extends javafx.application.Application {
 
     private ScheduledExecutorService scheduler;
 
+    public static boolean isStyleApplied = false;
+
     @Override
     public void start(Stage stage) throws IOException {
+
+        Font.loadFont(getClass().getResourceAsStream("/ua/dscorp/poessence/fonts/Fontin-Italic.ttf"), 12);
+        Font.loadFont(getClass().getResourceAsStream("/ua/dscorp/poessence/fonts/Fontin-Regular.ttf"), 12);
+
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("main-window-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         MainWindowController controller = fxmlLoader.getController();
+        loadPresets();
+
+        if (isStyleApplied) {
+            scene.getStylesheets().add(getClass().getResource("/ua/dscorp/poessence/styles.css").toExternalForm());
+        }
+
         controller.setKeys(scene);
         stage.setTitle(TOOL_NAME);
         stage.setScene(scene);
         stage.setMaximized(true);
-        loadPresets();
 
         scheduler = Executors.newScheduledThreadPool(2);
         scheduler.scheduleAtFixedRate(() -> {
@@ -88,6 +100,7 @@ public class Application extends javafx.application.Application {
         PersistenceHandler.ninjaPriceMultiplierPers.setText(prefsMap.get("ninjaPriceMultiplier"));
         PersistenceHandler.minEssenceTierPers.setText(prefsMap.get("minEssenceTier"));
         PersistenceHandler.constantUpdatePers.setSelected(Boolean.parseBoolean(prefsMap.get("constantUpdate")));
+        isStyleApplied = Boolean.parseBoolean(prefsMap.get("isStyleApplied"));
     }
 
     private void savePresets() throws IOException {
@@ -97,7 +110,8 @@ public class Application extends javafx.application.Application {
                 + ";threshold=" + PersistenceHandler.thresholdPers.getText()
                 + ";ninjaPriceMultiplier=" + PersistenceHandler.ninjaPriceMultiplierPers.getText()
                 + ";minEssenceTier=" + PersistenceHandler.minEssenceTierPers.getText()
-                + ";constantUpdate=" + PersistenceHandler.constantUpdatePers.isSelected();
+                + ";constantUpdate=" + PersistenceHandler.constantUpdatePers.isSelected()
+                + ";isStyleApplied=" + isStyleApplied;
         File file = new File(SETTINGS_FILE);
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(file, prefs);

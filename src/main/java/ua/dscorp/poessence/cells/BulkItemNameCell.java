@@ -34,31 +34,31 @@ public class BulkItemNameCell<T> extends TableCell<Line, T> {
                 BulkItem bulkItem = bulkItems.get(index);
                 if (bulkItem.isYou()) {
                     if (withBorder) {
-                        column.setStyle("-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #AAAAAA;");
-                        setStyle("-fx-background-color: CORNFLOWERBLUE;-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #AAAAAA;");
+                        column.setStyle("-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #555555;");
+                        setStyle("-fx-background-color: #144a9c;-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #555555;");
                     }
                     else
-                        setStyle("-fx-background-color: CORNFLOWERBLUE;");
+                        setStyle("-fx-background-color: #144a9c;");
                 }
                 else if (bulkItem.isAfk()) {
                     if (withBorder) {
-                        column.setStyle("-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #AAAAAA;");
-                        setStyle("-fx-background-color: GOLD;-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #AAAAAA;");
+                        column.setStyle("-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #555555;");
+                        setStyle("-fx-background-color: #C26915;-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #555555;");
                     }
                     else
-                        setStyle("-fx-background-color: GOLD;");
+                        setStyle("-fx-background-color: #C26915;");
                 } else {
                     if (withBorder) {
-                        column.setStyle("-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #AAAAAA;");
-                        setStyle("-fx-background-color: LIGHTGREEN;-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #AAAAAA;");
+                        column.setStyle("-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #555555;");
+                        setStyle("-fx-background-color: #00825a;-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #555555;");
                     }
                     else
-                        setStyle("-fx-background-color: LIGHTGREEN;");
+                        setStyle("-fx-background-color: #00825a;");
                 }
             } else {
                 if (withBorder) {
-                    column.setStyle("-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #AAAAAA;");
-                    setStyle("-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #AAAAAA;");
+                    column.setStyle("-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #555555;");
+                    setStyle("-fx-border-width: 0px 0px 0px 5px;-fx-border-color: #555555;");
                 }
                 else
                     setStyle("");

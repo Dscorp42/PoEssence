@@ -1,33 +1,8 @@
-1) Create bulk requests in chaos with minimal stock for buyout (with whisper function?)
-2) Alarm mechanic for buyout or self offer being cheapest?
-3) OAuth? - why? for whispers for buyout for alarms.
-4) Constant update without overwhelming of api. - repeating calls with double delay already.
-5) Autoupdate/autosave periodically. - autosave after first fetch. need to do autosave once per hour?
-6) note per item or item type. - done.
-7) selective load of item types, with persistence of choices.
-8) make tabs for essences, fossils, etc. to refresh once and switch between them.
-
- |
- |
- |
-\ /
- v
-
-
-
-1) all-watch milestone:
-    - last updated label, load last snapshot on start - done
-    - alt+Left right arrows or alt+z/c to switch between prev/next snapshots of same item type - done
-    - tabs for essences, fossils, fragments, currency - done
-    - selective load of items - done
-    - persistence of choices from above - done
-    - rework of constant load/save for multiple item types - done?
+1) rework of constant load/save for multiple item types
 
 2) buyout milestone:
     - alarm for price anomalies
     - chaos buyout with min stock
     - oauth for in-game whisper
 
-3) release:
-    - Package of major release as installer manually but with instruction in repo - why
-    - Get it to GitHub and release artifacts there
+3) release of installer and autoupdate

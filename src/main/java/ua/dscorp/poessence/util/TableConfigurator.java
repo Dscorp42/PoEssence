@@ -34,7 +34,7 @@ public final class TableConfigurator {
 
         // Create a column with a button in each cell
         TableColumn<Line, Void> actionColumn = new TableColumn<>("Note");
-        actionColumn.setPrefWidth(55);
+        actionColumn.setPrefWidth(60);
         Callback<TableColumn<Line, Void>, TableCell<Line, Void>> cellFactory = new TableColumnTableCellCallback();
         actionColumn.setCellFactory(cellFactory);
 

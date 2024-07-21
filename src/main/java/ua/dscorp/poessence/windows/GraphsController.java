@@ -1,14 +1,12 @@
 package ua.dscorp.poessence.windows;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import ua.dscorp.poessence.data.Line;
@@ -31,6 +29,8 @@ public class GraphsController {
     private ScrollPane scrollPane;
     @FXML
     private ChoiceBox<String> itemChoiceBox;
+    @FXML
+    public Label warnings;
 
     private Map<String, List<Pair<Double, String>>> divSingleValue = new HashMap<>();
     private Map<String, List<Pair<Double, String>>> divBulkValue = new HashMap<>();
@@ -115,18 +115,22 @@ public class GraphsController {
     private void loadDataFromFile(File file) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
-        List<Line> lines = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, Line.class));
+        try {
+            List<Line> lines = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, Line.class));
 
-        for (Line line : lines) {
-            if (allDetails.stream().noneMatch(floatStringPair -> floatStringPair.getValue().equals(line.getDetailsId()))) {
-                allDetails.add(new Pair<>(line.getChaosValue(), line.getDetailsId()));
+            for (Line line : lines) {
+                if (allDetails.stream().noneMatch(floatStringPair -> floatStringPair.getValue().equals(line.getDetailsId()))) {
+                    allDetails.add(new Pair<>(line.getChaosValue(), line.getDetailsId()));
+                }
+                divSingleValue.computeIfAbsent(line.getDetailsId(), d -> new ArrayList<>())
+                        .add(new Pair<>((double) line.getDivineValue(), getRefinedName(file)));
+                if (line.getBulkItems() != null && !line.getBulkItems().isEmpty()) {
+                    divBulkValue.computeIfAbsent(line.getDetailsId(), d -> new ArrayList<>())
+                            .add(new Pair<>(line.getBulkItems().getFirst().getExchangeAmount() / line.getBulkItems().getFirst().getItemAmount(), getRefinedName(file)));
+                }
             }
-            divSingleValue.computeIfAbsent(line.getDetailsId(), d -> new ArrayList<>())
-                    .add(new Pair<>((double) line.getDivineValue(), getRefinedName(file)));
-            if (line.getBulkItems() != null && !line.getBulkItems().isEmpty()) {
-                divBulkValue.computeIfAbsent(line.getDetailsId(), d -> new ArrayList<>())
-                        .add(new Pair<>(line.getBulkItems().getFirst().getExchangeAmount()/line.getBulkItems().getFirst().getItemAmount(), getRefinedName(file)));
-            }
+        } catch (MismatchedInputException e) {
+            warnings.setText("File is corrupted: " + file);
         }
     }
 
