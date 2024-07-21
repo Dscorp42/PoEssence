@@ -218,6 +218,7 @@ public class Application extends javafx.application.Application {
         }
         savePresets();
         if (AdminCheck.isRunningAsAdmin())
+            System.out.println("Force stop.");
             shutdownAll();
     }
 

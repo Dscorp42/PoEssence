@@ -8,6 +8,7 @@ module ua.dscorp.poessence {
     requires eu.hansolo.tilesfx;
     requires com.fasterxml.jackson.databind;
     requires org.json;
+    requires org.commonmark;
 
     opens ua.dscorp.poessence to javafx.fxml;
     exports ua.dscorp.poessence;

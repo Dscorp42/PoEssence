@@ -1,28 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
 
-<VBox minHeight="640.0" minWidth="500.0" prefHeight="640.0" prefWidth="891.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.dscorp.poessence.windows.AboutController">
+<VBox minHeight="640.0" minWidth="600.0" prefHeight="740.0" prefWidth="890.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.dscorp.poessence.windows.AboutController">
   <padding>
     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
   </padding>
    <children>
-      <ScrollPane prefHeight="601.0" prefWidth="851.0">
-        <content>
-          <AnchorPane>
-               <children>
-                  <Label alignment="TOP_LEFT" prefHeight="70.0" prefWidth="235.0" text="PoEssence">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="about" alignment="TOP_LEFT" layoutX="7.0" layoutY="70.0" prefHeight="1379.0" prefWidth="753.0" text="PoEssence is a tool that combines information from websites poe.ninja and pathofexile.com/trade (Bulk Item Exchange).&#10;&#10;General features:&#10;&#10;Shortcuts:&#10;Alt+Z/C or Alt+Left/Right Arrow - switches between adjacent snapshots on current tab.&#10;If used during refresh - new data will be lost unless it will be autosaved on success. &#10;In this case better to Stop it and restart.&#10;&#10;What data is saved:&#10;  Settings are saved on exit.&#10;  Notes are saved on &quot;Save&quot; button in them.&#10;  Snapshots of loaded data are saved:&#10;      - Manually by pressing &quot;Save&quot; button.&#10;      - Automatically when &quot;Refresh prices (tab)&quot; fifnishes without constant update. (See details in Buttons overview)&#10;      - In other cases only table is updated, but nothing is saved.&#10;&#10;Option to select wanted items appears on first execution on active tab or on every button &quot;Refresh prices (tab) + Filter&quot; click.&#10;&#10;Settings overview:&#10;  Account name to highlight your offers. &#10;    Default empty.&#10;  Minimal essence tier filter. &#10;    Default is 6.&#10;  Highlight of minimal margin (Diff %) between divine value of ninja price vs. lowest divine value of poe bulk trade.&#10;    Default is 75%.&#10;  Multiplier of poe.ninja price that is reflected on Diff % live in order to estimate if e.g. bulk buy from TFT discord makes sence.&#10;    Default is 100%.&#10;  League dropdown - self-explanatory. &#10;    NOTE: snapshots does not care for what league do you save them, be careful.&#10;  Snapshot dropdown - content changes depending on active tab, shows previouslt successfully saved data.&#10;  Save / Load - save/load selected snapshot.&#10;  Invalidate saves - moves saved data of current item type to /old folder. &#10;    It becomes inaccessible for loading and graphs and can be restored manually.&#10;&#10;Graphs: creates basic graphs of individual and bulk prices per item type, based on all saved data.&#10;&#10;Buttons overview:&#10;(Use &quot;Constant update&quot; with caution - may hang on background on exit or lead to timeouts on poe trade site)&#10;Refresh prices (tab):&#10;1) Requests data from poe.ninja for active tab.&#10;2) Shows filter window (on first use).&#10;3) Starting data requests to poe trade. Due to specific of website, delay between requests is needed. &#10;    Tries to show progress and estimate on the buttom of window.&#10;4.1) (Optional) If &quot;Constant update&quot; checkbox was checked before start &#10;    - continually repeats requests to poe trade, using extended delay after first fill.&#10;4.2)  (Optional) If &quot;Constant update&quot; checkbox was not checked before start &#10;    - saves data as snapshot.&#10;&#10;Refresh prices (tab) + Filter:&#10;Same as &quot;Refresh prices (tab)&quot; but shows Filter window every time.&#10;&#10;Stop:&#10;(Tries to) Stop all upcoming pathofexile.com/trade requests.&#10;NOTE: It is possible that after closing of this tool background task that was started with &quot;Constant update&quot; will continue to run.&#10;If you have some doubts about that: &#10;Open Task Manager and look for Java process that consumes considerable amount of CPU/Disk -&gt; End it.&#10;(Unless you know that some other soft on your PC may run java processes (why tho, r u crazy?)).&#10;&#10;Refresh all (no autosave):&#10;Same as &quot;Refresh prices (tab)&quot;, but it never saves results, whenever &quot;Constant update&quot; is checked or not.&#10;&#10;Table overview:&#10;&#10;&quot;Note&quot; - opens note, that is stored per item type. Will be saved on &quot;Save&quot; button, will persist between refreshes and tool restarts.&#10;&quot;Div Value&quot; of items are calculated based ob chaos value of item from poe.ninla / divine value in chaoses from poe.ninja every time.&#10;&quot;Bulk Div&quot; is lowest price per item from bulk trade.&#10;&quot;Diff %&quot; see Settings overview.&#10;&quot;Account&quot; - name of seller.&#10;&quot;Div Зrice&quot; - how many divines per item. In case if more then 1 divine is asked, value is normalized, original value is in ().&#10;&quot;Stock&quot; - how many items available.&#10;&#10;Bulk offers are colored:&#10;    - Green if player is online.&#10;    - Yellow if player is AFK.&#10;    - Blue if player name is equal to Account name from field under the table.&#10;&#10;&#10;&#10;(c) Dscorp, 2024" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
+      <WebView fx:id="webView" prefHeight="614.0" prefWidth="734.0" />
    </children>
 </VBox>

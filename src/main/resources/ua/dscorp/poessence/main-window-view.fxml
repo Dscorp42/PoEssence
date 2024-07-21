@@ -178,7 +178,7 @@
                </VBox>
                <VBox fx:id="settings3" alignment="TOP_RIGHT" prefWidth="250.0">
                   <children>
-                     <ChoiceBox fx:id="snapshotChoiceBox">
+                     <ChoiceBox fx:id="snapshotChoiceBox" prefWidth="240.0">
                         <VBox.margin>
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </VBox.margin>

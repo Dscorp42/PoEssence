@@ -39,7 +39,7 @@ public class PoeTradeParser {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Poe trade parse failed: " + e.getCause());
+            System.out.println("Poe trade parse failed: " + e.getMessage());
         }
         return items;
     }

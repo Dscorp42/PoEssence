@@ -96,6 +96,11 @@
       <artifactId>json</artifactId>
       <version>20210307</version>
     </dependency>
+    <dependency>
+      <groupId>org.commonmark</groupId>
+      <artifactId>commonmark</artifactId>
+      <version>0.18.2</version>
+    </dependency>
   </dependencies>
 
 

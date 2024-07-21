@@ -185,7 +185,7 @@ public final class MainWindowController {
             // No prev saved data.
             return;
         }
-        lastSize.set(snapshotChoiceBox.getItems().size());
+        lastSize.set(files.size());
 
         String lastFile = chooseFile(files, lastSize.get());
         loadSnapshot(lastFile);
@@ -409,6 +409,9 @@ public final class MainWindowController {
     public void onGraphsClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("graphs-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        if (isStyleApplied) {
+            scene.getStylesheets().add(getClass().getResource("/ua/dscorp/poessence/styles.css").toExternalForm());
+        }
         Stage stage = new Stage();
         stage.setTitle(TOOL_NAME + " - Graphs");
         stage.setScene(scene);
@@ -420,6 +423,9 @@ public final class MainWindowController {
     public void onAboutClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("about-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        if (isStyleApplied) {
+            scene.getStylesheets().add(getClass().getResource("/ua/dscorp/poessence/styles.css").toExternalForm());
+        }
         Stage stage = new Stage();
         stage.setTitle(TOOL_NAME + " - About");
         stage.setScene(scene);
@@ -429,7 +435,7 @@ public final class MainWindowController {
 
     private void loadSnapshotChoices(ItemType itemType) {
         List<String> files = getTableContentFileNames(itemType);
-        snapshotChoiceBox.setItems(FXCollections.observableArrayList(files));
+        Platform.runLater(() -> snapshotChoiceBox.setItems(FXCollections.observableArrayList(files)));
     }
 
     public List<Line> getTableContent() {
