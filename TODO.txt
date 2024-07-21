@@ -1,6 +1,6 @@
 1) rework of constant load/save for multiple item types
 
 2) buyout milestone:
-    - alarm for price anomalies
+    - alarm for price anomalies - SoundPlayer added
     - chaos buyout with min stock
     - oauth for in-game whisper

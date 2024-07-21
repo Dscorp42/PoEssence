@@ -9,6 +9,8 @@ module ua.dscorp.poessence {
     requires com.fasterxml.jackson.databind;
     requires org.json;
     requires org.commonmark;
+    requires java.desktop;
+    requires jlayer;
 
     opens ua.dscorp.poessence to javafx.fxml;
     exports ua.dscorp.poessence;
