@@ -48,22 +48,9 @@ jobs:
       - name: Rename 2
         run: mv ./artifacts/PoEssence-1.0.exe ./artifacts/PoEssence.exe
 
-      - name: Upload JAR Artifact to the Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-        run: |
-          curl -X POST \
-            -H "Authorization: token ${{ secrets.PAT }}" \
-            -H "Content-Type: application/zip" \
-            --data-binary @./artifacts/PoEssence.jar \
-            "https://uploads.github.com/repos/${{ github.repository }}/releases/${{ env.RELEASE_ID }}/assets?name=PoEssence.jar"
 
-      - name: Upload EXE Installer to the Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-        run: |
-          curl -X POST \
-            -H "Authorization: token ${{ secrets.PAT }}" \
-            -H "Content-Type: application/x-mswinexe" \
-            --data-binary @./artifacts/PoEssence.exe \
-            "https://uploads.github.com/repos/${{ github.repository }}/releases/${{ env.RELEASE_ID }}/assets?name=PoEssence.exe"
+      - name: upload binaries to release
+        uses: softprops/action-gh-release@v1
+        with:
+            tag: ${{ process.env.RELEASE_TAG }}
+            files: ./artifacts/PoEssence.jar
