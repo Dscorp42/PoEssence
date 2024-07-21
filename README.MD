@@ -15,7 +15,7 @@ To run PoEssence without installation, you need to have Java JDK installed. You 
 
 ## General Features
 
-Autoupdate and force shutdown of lsgged-out fetch tasks on exit is available if started from Administrator.
+Autoupdate and force shutdown of lagged-out fetch tasks on exit is available if started from Administrator.
 
 ### Shortcuts
 
