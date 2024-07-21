@@ -48,37 +48,22 @@ jobs:
       - name: Rename 2
         run: mv ./artifacts/PoEssence-1.0.exe ./artifacts/PoEssence.exe
 
-      - name: Create GitHub Release
-        id: create-release
-        uses: actions/github-script@v6
+      - name: Upload JAR Artifact to the Release
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
-        with:
-          script: |
-            const releaseTag = process.env.RELEASE_TAG;
-            const { data: release } = await github.rest.repos.createRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag_name: releaseTag,
-              name: `Release ${releaseTag}`,
-              body: `Release description for version ${releaseTag}`,
-              draft: false,
-              prerelease: false
-            });
-            return release;
-
-      - name: Upload JAR Artifact to the Release
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./artifacts/PoEssence.jar
-          asset_name: PoEssence.jar
-          asset_content_type: application/java-archive
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.PAT }}" \
+            -H "Content-Type: application/zip" \
+            --data-binary @./artifacts/PoEssence.jar \
+            "https://uploads.github.com/repos/${{ github.repository }}/releases/${{ env.RELEASE_ID }}/assets?name=PoEssence.jar"
 
       - name: Upload EXE Installer to the Release
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./artifacts/PoEssence.exe
-          asset_name: PoEssence.exe
-          asset_content_type: application/x-mswinexe
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.PAT }}" \
+            -H "Content-Type: application/x-mswinexe" \
+            --data-binary @./artifacts/PoEssence.exe \
+            "https://uploads.github.com/repos/${{ github.repository }}/releases/${{ env.RELEASE_ID }}/assets?name=PoEssence.exe"
