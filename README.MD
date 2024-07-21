@@ -1,3 +1,7 @@
+To install go to https://github.com/Dscorp42/PoEssence/releases/latest download and run PoEssence.exe.
+Only installed version support autoupdates.
+
+
 PoEssence is a tool that combines information from websites poe.ninja and pathofexile.com/trade (Bulk Item Exchange).
 
 To run this tool please install Java JDK, e.g.
