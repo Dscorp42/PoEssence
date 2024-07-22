@@ -249,6 +249,7 @@ public class Application extends javafx.application.Application {
         PersistenceHandler.ninjaPriceMultiplierPers.setText(prefsMap.get("ninjaPriceMultiplier"));
         PersistenceHandler.minEssenceTierPers.setText(prefsMap.get("minEssenceTier"));
         PersistenceHandler.constantUpdatePers.setSelected(Boolean.parseBoolean(prefsMap.get("constantUpdate")));
+        PersistenceHandler.fastUpdatePers.setSelected(Boolean.parseBoolean(prefsMap.get("fastUpdate")));
         isStyleApplied = Boolean.parseBoolean(prefsMap.get("isStyleApplied"));
     }
 
@@ -260,6 +261,7 @@ public class Application extends javafx.application.Application {
                 + ";ninjaPriceMultiplier=" + PersistenceHandler.ninjaPriceMultiplierPers.getText()
                 + ";minEssenceTier=" + PersistenceHandler.minEssenceTierPers.getText()
                 + ";constantUpdate=" + PersistenceHandler.constantUpdatePers.isSelected()
+                + ";fastUpdate=" + PersistenceHandler.fastUpdatePers.isSelected()
                 + ";isStyleApplied=" + isStyleApplied;
         File file = new File(APP_DATA_FOLDER, SETTINGS_FILE);
         ObjectMapper mapper = new ObjectMapper();

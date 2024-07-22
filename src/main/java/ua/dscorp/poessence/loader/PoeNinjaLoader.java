@@ -34,6 +34,7 @@ import static ua.dscorp.poessence.windows.MainWindowController.task;
 
 public final class PoeNinjaLoader {
 
+    private static final String DIVINE = "divine";
     private static final String DIVINE_ORB = "divine-orb";
 
     public static ExecutorService executorService;
@@ -57,10 +58,12 @@ public final class PoeNinjaLoader {
         mainWindowController.refreshButton.setDisable(true);
         mainWindowController.refreshButtonExt.setDisable(true);
         mainWindowController.refreshButtonAll.setDisable(true);
+        mainWindowController.constantUpdate.setDisable(true);
+        mainWindowController.fastUpdate.setDisable(true);
         // e.g. https://poe.ninja/api/data/itemoverview?league=Necropolis&type=Essence
         fetchData("https://poe.ninja/api/data/" + mainWindowController.itemType.getType() + "overview?league=" + mainWindowController.leagueChoiceBox.getValue() + "&type=" + mainWindowController.itemType.getName(), true);
         fetchData("https://poe.ninja/api/data/" + ItemType.CURRENCY.getType() + "overview?league=" + mainWindowController.leagueChoiceBox.getValue() + "&type=" + ItemType.CURRENCY.getName(), false);
-        divValue = currencyStore.get(DIVINE_ORB).getChaosValue();
+        divValue = currencyStore.getOrDefault(DIVINE_ORB, currencyStore.get(DIVINE)).getChaosValue();
         itemsStore.forEach(line -> line.setDivineValue(line.getChaosValue() / divValue));
 
         ObservableList<Line> observableLineList = FXCollections.observableArrayList(itemsStore);
@@ -87,8 +90,13 @@ public final class PoeNinjaLoader {
                 CurrencyDetailsContainer currencyDetails = objectMapper.readValue(json.toString(), CurrencyDetailsContainer.class);
                 List<CurrencyDetail> currencyDetailsList = currencyDetails.getCurrencyDetails();
                 items.forEach(line -> {
-                    if (currencyDetailsList.stream().anyMatch(cd -> cd.getName().equals(line.getName())))
+                    if (currencyDetailsList.stream().anyMatch(cd -> cd.getName().equals(line.getName()))) {
                         line.setIcon(currencyDetailsList.stream().filter(cd -> cd.getName().equals(line.getName())).findFirst().get().getIcon());
+                        String tradeId = currencyDetailsList.stream().filter(cd -> cd.getName().equals(line.getName())).findFirst().get().getTradeId();
+                        if (tradeId != null) {
+                            line.setDetailsId(tradeId);
+                        }
+                    }
                 });
             }
 
@@ -128,6 +136,8 @@ public final class PoeNinjaLoader {
                         mainWindowController.refreshButton.setDisable(false);
                         mainWindowController.refreshButtonExt.setDisable(false);
                         mainWindowController.refreshButtonAll.setDisable(false);
+                        mainWindowController.constantUpdate.setDisable(false);
+                        mainWindowController.fastUpdate.setDisable(false);
                         return;
                     }
                 }

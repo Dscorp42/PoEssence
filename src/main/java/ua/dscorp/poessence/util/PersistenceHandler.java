@@ -17,6 +17,7 @@ public final class PersistenceHandler {
     public static TextField ninjaPriceMultiplierPers;
     public static TextField minEssenceTierPers;
     public static CheckBox constantUpdatePers;
+    public static CheckBox fastUpdatePers;
 
     public static void loadPersistenceSettings(MainWindowController mainWindow) {
         leagueChoiceBoxPers = mainWindow.leagueChoiceBox;
@@ -27,6 +28,7 @@ public final class PersistenceHandler {
         ninjaPriceMultiplierPers = mainWindow.ninjaPriceMultiplier;
         minEssenceTierPers = mainWindow.minEssenceTier;
         constantUpdatePers = mainWindow.constantUpdate;
+        fastUpdatePers = mainWindow.fastUpdate;
 
         setDefaultValues(mainWindow);
     }

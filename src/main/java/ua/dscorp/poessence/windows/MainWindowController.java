@@ -63,6 +63,8 @@ public final class MainWindowController {
     @FXML
     public CheckBox constantUpdate;
     @FXML
+    public CheckBox fastUpdate;
+    @FXML
     public CheckBox hourlyUpdate;
     @FXML
     public Button refreshButton;
@@ -74,6 +76,8 @@ public final class MainWindowController {
     public VBox mainWindow;
     @FXML
     public Label warnings;
+    @FXML
+    public Label warnings2;
     @FXML
     public Label lastUpdated;
     @FXML
@@ -122,7 +126,7 @@ public final class MainWindowController {
         perTableActivities();
 
         accountName.textProperty().addListener((observableValue, oldVal, newVal) -> {
-            tableView.getItems().forEach(line -> line.getBulkItems().forEach(bulkItem -> bulkItem.setYou(bulkItem.getName().equals(newVal))));
+            tableView.getItems().stream().filter(line -> line.getBulkItems() != null).forEach(line -> line.getBulkItems().forEach(bulkItem -> bulkItem.setYou(bulkItem.getName().equals(newVal))));
             tableView.refresh();
         });
 
@@ -326,6 +330,8 @@ public final class MainWindowController {
         }
         refreshButton.setDisable(false);
         refreshButtonExt.setDisable(false);
+        constantUpdate.setDisable(false);
+        fastUpdate.setDisable(false);
     }
 
     @FXML
@@ -392,13 +398,13 @@ public final class MainWindowController {
             snapshotChoiceBox.setValue(fileName);
         }
         catch (MismatchedInputException e) {
-            warnings.setText("File is corrupted, please remove it from snapshots folder or Invalidate saves: " + fileName);
+            warnings.setText("File is corrupted, Invalidate it: " + fileName);
         }
     }
 
     @FXML
     public void onInvalidateButtonClick() throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Invalidate saves? It will move it to old folder", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Invalidate saves? It will move them to old folder", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
             List<String> files = getTableContentFileNames(itemType);
@@ -406,6 +412,18 @@ public final class MainWindowController {
             for (String file : files) {
                 Files.move(Path.of(APP_DATA_FOLDER, SNAPSHOTS_FOLDER + file), Path.of(APP_DATA_FOLDER, SNAPSHOTS_FOLDER + "old/" + file), StandardCopyOption.REPLACE_EXISTING);
             }
+            loadSnapshotChoices(itemType);
+        }
+    }
+
+    @FXML
+    public void onInvalidateSelectedButtonClick() throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Invalidate selected save? It will move it to old folder", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
+            String file = snapshotChoiceBox.getValue();
+            Files.createDirectories(Path.of(APP_DATA_FOLDER, SNAPSHOTS_FOLDER + "old/"));
+            Files.move(Path.of(APP_DATA_FOLDER, SNAPSHOTS_FOLDER + file), Path.of(APP_DATA_FOLDER, SNAPSHOTS_FOLDER + "old/" + file), StandardCopyOption.REPLACE_EXISTING);
             loadSnapshotChoices(itemType);
         }
     }

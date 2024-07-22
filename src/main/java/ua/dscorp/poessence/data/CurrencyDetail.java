@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class CurrencyDetail {
     private String name;
     private String icon;
+    private String tradeId;
 
     public String getName() {
         return name;
@@ -21,6 +22,14 @@ public class CurrencyDetail {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getTradeId() {
+        return tradeId;
+    }
+
+    public void setTradeId(String tradeId) {
+        this.tradeId = tradeId;
     }
 
     @Override

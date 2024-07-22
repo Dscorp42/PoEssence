@@ -95,6 +95,12 @@ public class FilterController {
             return;
         }
         List<SimpleLine> lines = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, SimpleLine.class));
+        long count = lines.stream().filter(inputSimple::contains).count();
+
+        if ((count * 100.0) / lines.size() < 80) {
+            lines.clear();
+        }
+        lines.removeIf(simpleLine -> simpleLine.getDetailsId() == null);
         lines.forEach(inputSimple::remove);
         inputSimple.addAll(lines);
         ObservableList<SimpleLine> inputSimpleObs = FXCollections.observableArrayList(inputSimple);
