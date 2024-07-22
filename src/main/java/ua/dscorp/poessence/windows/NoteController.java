@@ -29,6 +29,9 @@ public class NoteController {
         StringJoiner result = new StringJoiner("\n");
         Files.createDirectories(Paths.get(APP_DATA_FOLDER + "/notes/"));
         File file = new File(APP_DATA_FOLDER, "notes/" + detailsId + ".txt");
+        notepad.textProperty().addListener((observable, oldValue, newValue) -> {
+            saveButton.setDisable(false);
+        });
         if (!file.exists()) {
             return;
         }
@@ -44,9 +47,6 @@ public class NoteController {
             e.printStackTrace();
         }
         notepad.setText(result.toString());
-        notepad.textProperty().addListener((observable, oldValue, newValue) -> {
-            saveButton.setDisable(false);
-        });
     }
 
     @FXML
