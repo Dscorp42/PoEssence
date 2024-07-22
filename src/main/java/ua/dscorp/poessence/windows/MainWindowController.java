@@ -150,7 +150,7 @@ public final class MainWindowController {
         }
         preloadedTabs.add(itemType);
 
-        configureTable(tableView, mainWindow, threshold.getText());
+        configureTable(tableView, threshold.getText());
 
         try {
             prefillTable();

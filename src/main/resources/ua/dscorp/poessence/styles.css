@@ -41,6 +41,12 @@
     -fx-text-fill: #e7c697;
 }
 
+/* Style for the CheckBox check mark */
+.check-box .box {
+    -fx-background-color: #151515; /* Background color of the box (unchecked) */
+    -fx-border-color: #555555; /* Border color of the box */
+    -fx-border-width: 2px; /* Border width of the box */
+}
 
 /* Style the tab header area */
 .tab-pane .tab-header-area {
@@ -128,4 +134,99 @@
 
 .tab-pane .tab-header-area .tab-header-background {
     -fx-background-color: #232323;
+}
+
+.text-area {
+-fx-font-family: "Fontin";
+-fx-font-size: 16px;
+
+    -fx-text-fill: #e7c697;
+}
+
+.text-area .content {
+-fx-background-color: #151515;
+}
+
+.text-area .scroll-bar:vertical .thumb {
+    -fx-background-color: #C69F60;
+}
+
+.text-area .scroll-bar:horizontal .thumb {
+    -fx-background-color: #C69F60;
+}
+.text-area .scroll-bar .track {
+    -fx-background-color: #414a4c;
+}
+
+/* Style for WebView scroll bars */
+.web-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #C69F60;
+}
+
+.web-view .scroll-bar:horizontal .thumb {
+    -fx-background-color: #C69F60;
+}
+
+.web-view .scroll-bar .track {
+    -fx-background-color: #414a4c;
+}
+
+/* Style for WebView scroll bars */
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #C69F60;
+}
+
+.table-view .scroll-bar:horizontal .thumb {
+    -fx-background-color: #C69F60;
+}
+
+.table-view .scroll-bar .track {
+    -fx-background-color: #414a4c;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: #C69F60;
+    -fx-padding: 0.5em;
+}
+
+.chart-content {
+    -fx-font-family: "Fontin";
+        -fx-background-color: #414a4c;
+        -fx-text-fill: #e7c697;
+        -fx-font-size: 14px;
+}
+
+.chart-plot-background {
+    -fx-font-family: "Fontin";
+        -fx-background-color: #414a4c;
+        -fx-text-fill: #e7c697;
+        -fx-font-size: 14px;
+}
+
+/* Style for LineChart legend */
+.chart-legend {
+    -fx-background-color: #151515; /* Background color of the legend */
+}
+
+.axis .axis-label {
+    -fx-text-fill: #e7c697; /* Color of the axis label */
+    -fx-font-size: 14px; /* Font size of the axis label */
+}
+
+.axis {
+    -fx-tick-label-fill: #e7c697; /* Color of the tick labels */
+    -fx-tick-label-font-size: 12px; /* Font size of the tick labels */
+}
+
+.vbox {
+    -fx-background-color: #232323; /* Light gray background color */
+}
+
+.scroll-pane {
+    -fx-background-color: #232323; /* Light gray background color */
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #232323; /* White background color for the content area */
 }

@@ -208,9 +208,8 @@ public class PoeTradeLoaderTask extends Task<List<Line>> {
                     while ((inputLine = in.readLine()) != null) {
                         response.append(inputLine);
                     }
-                    List<BulkItem> bulkItems = PoeTradeParser.parseResult(response.toString(), mainWindowController.accountName.getText());
+                    PoeTradeParser.parseResult(response.toString(), mainWindowController.accountName.getText(), item);
                     System.out.println("delayBetweenRequests: " + delayBetweenRequests);
-                    item.setBulkItems(bulkItems);
                 }
             }
             // too many requests

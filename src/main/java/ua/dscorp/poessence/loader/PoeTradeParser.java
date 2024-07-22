@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ua.dscorp.poessence.data.BulkItem;
+import ua.dscorp.poessence.data.Line;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +14,13 @@ public class PoeTradeParser {
 
     public static final int MAX_RESULTS = 7;
 
-    public static List<BulkItem> parseResult(String json, String currentAccountName) {
+    public static void parseResult(String json, String currentAccountName, Line item) {
 
         List<BulkItem> items = new ArrayList<>();
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             Result result = objectMapper.readValue(json, Result.class);
-
+            item.setOffers(result.getTotal());
             List<ResultEntry> entries = result.getResults();
             for (ResultEntry entry : entries) {
                 Account account = entry.getListing().getAccount();
@@ -41,7 +42,7 @@ public class PoeTradeParser {
         } catch (Exception e) {
             System.out.println("Poe trade parse failed: " + e.getMessage());
         }
-        return items;
+        item.setBulkItems(items);
     }
 
     // Class for the Exchange info
@@ -290,6 +291,7 @@ public class PoeTradeParser {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Result {
         private List<ResultEntry> results;
+        private String total;
 
         @JsonProperty("result")
         public void unpackNestedResults(Map<String, ResultEntry> resultsMap) {
@@ -302,6 +304,14 @@ public class PoeTradeParser {
 
         public void setResults(List<ResultEntry> results) {
             this.results = results;
+        }
+
+        public String getTotal() {
+            return total;
+        }
+
+        public void setTotal(String total) {
+            this.total = total;
         }
     }
 }

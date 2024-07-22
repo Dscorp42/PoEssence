@@ -46,8 +46,9 @@ public class GraphsController {
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
 
-        chart.getXAxis().setLabel("File names");
-        chart.setTitle("Line Chart from Multiple Files");
+        chart.getXAxis().setLabel("Date");
+        chart.getYAxis().setLabel("Divine price");
+        chart.setTitle("Price change");
         chart.setAnimated(false);
     }
 

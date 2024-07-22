@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import ua.dscorp.poessence.Application;
@@ -13,6 +14,8 @@ import ua.dscorp.poessence.data.Line;
 import ua.dscorp.poessence.windows.NoteController;
 
 import java.io.IOException;
+
+import static ua.dscorp.poessence.Application.isStyleApplied;
 
 public class TableColumnTableCellCallback implements Callback<TableColumn<Line, Void>, TableCell<Line, Void>> {
     @Override
@@ -31,13 +34,17 @@ public class TableColumnTableCellCallback implements Callback<TableColumn<Line, 
                         controller.setDetailsId(line.getDetailsId());
                         controller.loadFile();
                         scene = new Scene(load, 500, 400);
+                        if (isStyleApplied) {
+                            scene.getStylesheets().add(getClass().getResource("/ua/dscorp/poessence/styles.css").toExternalForm());
+                        }
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                     Stage stage = new Stage();
-                    stage.setTitle(line.getDetailsId() + " - Note");
+                    stage.setTitle(line.getName() + " - Note");
                     stage.setScene(scene);
                     stage.setMaximized(false);
+                    stage.getIcons().add(new Image(line.getIcon()));
                     stage.show();
                 });
             }

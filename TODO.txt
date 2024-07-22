@@ -1,6 +1,10 @@
-1) rework of constant load/save for multiple item types
+1) rework of constant load/save for multiple item types - currently working fiiiiine
 
 2) buyout milestone:
     - alarm for price anomalies - SoundPlayer added
-    - chaos buyout with min stock
-    - oauth for in-game whisper
+    - chaos buyout with min stock - not sure if needed with auction?
+    - oauth for in-game whisper - there is possibility to form and copy whisper (or probably send to game?) without authorization. auth does not give additional quotas for trade requests.
+
+TOP:
+3) add to table button for each item type that will add data from auction - exchange rate, stock for divines, chaos. will generate date of save.
+add margins for it. try to add these values as vertical separated to save horizontal space.

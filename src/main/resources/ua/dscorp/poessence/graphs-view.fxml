@@ -20,11 +20,11 @@
       </LineChart>
       <HBox prefHeight="33.0" prefWidth="851.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onCreateGraphButtonClick" prefWidth="130.0" text="Create graph">
+            <Button minWidth="160.0" mnemonicParsing="false" onAction="#onCreateGraphButtonClick" prefWidth="160.0" text="Create graph">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin></Button>
-            <ChoiceBox fx:id="itemChoiceBox" prefWidth="150.0">
+            <ChoiceBox fx:id="itemChoiceBox" minWidth="150.0" prefWidth="150.0">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
@@ -37,7 +37,7 @@
       </HBox>
       <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0">
          <content>
-            <VBox fx:id="forChecks" prefHeight="200.0" prefWidth="100.0" />
+            <VBox fx:id="forChecks" />
          </content>
       </ScrollPane>
    </children>

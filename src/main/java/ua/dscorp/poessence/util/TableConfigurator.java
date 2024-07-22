@@ -26,7 +26,7 @@ public final class TableConfigurator {
 
     public static final int DEFAULT_THRESOLD = 75;
 
-    public static void configureTable(TableView<Line> tableView, VBox mainWindow, String threshold) {
+    public static void configureTable(TableView<Line> tableView, String threshold) {
         TableColumn<Line, String> iconColumn = new TableColumn<>("Icon");
         iconColumn.setPrefWidth(30);
         iconColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIcon()));
@@ -151,5 +151,9 @@ public final class TableConfigurator {
 
             tableView.getColumns().addAll(bulkItemNameColumn, bulkItemExchangeAmountColumn, bulkItemStockAmountColumn);
         }
+
+        TableColumn<Line, String> totalOffersColumn = new TableColumn<>("Offers");
+        totalOffersColumn.setCellValueFactory(new PropertyValueFactory<>("offers"));
+        tableView.getColumns().add(totalOffersColumn);
     }
 }

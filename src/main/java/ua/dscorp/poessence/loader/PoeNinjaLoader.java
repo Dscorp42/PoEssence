@@ -27,8 +27,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
-import static ua.dscorp.poessence.Application.APP_DATA_FOLDER;
-import static ua.dscorp.poessence.Application.TOOL_NAME;
+import static ua.dscorp.poessence.Application.*;
 import static ua.dscorp.poessence.windows.MainWindowController.itemsStore;
 import static ua.dscorp.poessence.windows.MainWindowController.task;
 
@@ -127,6 +126,9 @@ public final class PoeNinjaLoader {
                     filterController.loadFile();
                     Stage stage = new Stage();
                     stage.setTitle(TOOL_NAME + " - Filter");
+                    if (isStyleApplied) {
+                        scene.getStylesheets().add(getClass().getResource("/ua/dscorp/poessence/styles.css").toExternalForm());
+                    }
                     stage.setScene(scene);
                     stage.setMaximized(false);
                     stage.showAndWait();

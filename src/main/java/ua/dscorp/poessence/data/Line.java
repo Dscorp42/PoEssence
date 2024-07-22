@@ -14,6 +14,7 @@ public class Line {
     private String mapTier;
     private List<BulkItem> bulkItems;
     private int ninjaPriceMultiplier = 100;
+    private String offers;
 
     // Getters and Setters
     public String getName() {
@@ -95,6 +96,14 @@ public class Line {
 
     public void setMapTier(String mapTier) {
         this.mapTier = mapTier;
+    }
+
+    public String getOffers() {
+        return offers;
+    }
+
+    public void setOffers(String offers) {
+        this.offers = offers;
     }
 
     @Override
