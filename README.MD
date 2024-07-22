@@ -2,6 +2,8 @@
 
 **PoEssence** is a powerful tool that combines information from [poe.ninja](https://poe.ninja) and [pathofexile.com/trade](https://pathofexile.com/trade) to facilitate bulk item exchanges in Path of Exile.
 
+<img src="./src/main/resources/ua/dscorp/poessence/example.jpg" alt="Main window">
+
 ## Installation
 
 1. Go to the [latest release](https://github.com/Dscorp42/PoEssence/releases/latest).
