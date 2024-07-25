@@ -6,7 +6,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import ua.dscorp.poessence.cells.BulkItemNameCell;
 import ua.dscorp.poessence.cells.DiffCell;
@@ -81,6 +80,20 @@ public final class TableConfigurator {
             }
         });
 
+        TableColumn<Line, String> divineStackValueColumn = new TableColumn<>("Stack Div");
+
+        divineStackValueColumn.setCellValueFactory(cellData -> {
+            List<BulkItem> bulkItems = cellData.getValue().getBulkItems();
+            if (bulkItems != null && !bulkItems.isEmpty()) {
+                double res = bulkItems.getFirst().getExchangeAmount()
+                        / bulkItems.getFirst().getItemAmount();
+                String resStr = BigDecimal.valueOf(res * cellData.getValue().getStackSize()).setScale(5, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString();
+                return new SimpleStringProperty(resStr);
+            } else {
+                return new SimpleStringProperty("");
+            }
+        });
+
         TableColumn<Line, Double> diffValueColumn = new TableColumn<>("Diff %");
 
         diffValueColumn.setCellValueFactory(cellData -> {
@@ -102,6 +115,7 @@ public final class TableConfigurator {
         tableView.getColumns().add(chaosValueColumn);
         tableView.getColumns().add(divineValueColumn);
         tableView.getColumns().add(divineBulkValueColumn);
+        tableView.getColumns().add(divineStackValueColumn);
         tableView.getColumns().add(diffValueColumn);
 
         // Add bulk item columns

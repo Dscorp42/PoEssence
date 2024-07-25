@@ -14,6 +14,7 @@ public class Line {
     private String mapTier;
     private List<BulkItem> bulkItems;
     private int ninjaPriceMultiplier = 100;
+    private int stackSize;
     private String offers;
 
     // Getters and Setters
@@ -104,6 +105,14 @@ public class Line {
 
     public void setOffers(String offers) {
         this.offers = offers;
+    }
+
+    public int getStackSize() {
+        return stackSize;
+    }
+
+    public void setStackSize(int stackSize) {
+        this.stackSize = stackSize;
     }
 
     @Override

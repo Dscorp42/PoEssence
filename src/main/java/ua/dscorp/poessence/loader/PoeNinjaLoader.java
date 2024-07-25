@@ -84,6 +84,7 @@ public final class PoeNinjaLoader {
             LinesContainer itemLines = objectMapper.readValue(json.toString(), LinesContainer.class);
 
             List<Line> items = itemLines.getLines();
+            items.removeIf(line -> line.getName().equals("Maven's Orb"));
 
             if (mainWindowController.itemType.getType().equals(ItemType.CURRENCY.getType())) {
                 CurrencyDetailsContainer currencyDetails = objectMapper.readValue(json.toString(), CurrencyDetailsContainer.class);

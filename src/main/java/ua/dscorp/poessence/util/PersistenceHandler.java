@@ -34,8 +34,8 @@ public final class PersistenceHandler {
     }
 
     private static void setDefaultValues(MainWindowController mainWindow) {
-        mainWindow.leagueChoiceBox.setItems(FXCollections.observableArrayList("Standard", "Necropolis", "Settlers"));
-        mainWindow.leagueChoiceBox.setValue("Necropolis");
+        mainWindow.leagueChoiceBox.setItems(FXCollections.observableArrayList("Standard", "Settlers"));
+        mainWindow.leagueChoiceBox.setValue("Settlers");
         mainWindow.minEssenceTier.setText("6");
         mainWindow.ninjaPriceMultiplier.setText("100");
         mainWindow.threshold.setText("75");

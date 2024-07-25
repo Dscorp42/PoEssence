@@ -240,6 +240,11 @@
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </HBox.margin>
             </Button>
+         <Button mnemonicParsing="false" onAction="#onCopyTableButtonClick"  text="Copy table">
+            <HBox.margin>
+               <Insets bottom="10.0" left="50.0" right="10.0" top="10.0" />
+            </HBox.margin>
+         </Button>
             <TextField fx:id="POESESSID" prefHeight="25.0" prefWidth="352.0" promptText="Cookie from browser (currently won't speed up anything)" visible="false">
                 <HBox.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

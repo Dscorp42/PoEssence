@@ -77,7 +77,7 @@ public class PoeTradeLoaderTask extends Task<List<Line>> {
                 }
             }
             try {
-                if (!noAutoSave) {
+                if (!noAutoSave && !isCancelled()) {
                     mainWindowController.saveData();
                 }
             } catch (IOException e) {

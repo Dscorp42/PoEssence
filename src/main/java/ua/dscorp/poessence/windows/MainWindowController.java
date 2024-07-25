@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -379,6 +381,38 @@ public final class MainWindowController {
             tableView.getScene().getStylesheets().remove(getClass().getResource("/ua/dscorp/poessence/styles.css").toExternalForm());
             isStyleApplied = false;
         }
+    }
+
+    @FXML
+    public void onCopyTableButtonClick() {
+        StringBuilder clipboardString = new StringBuilder();
+
+        int colsToSkip = 2;
+
+        int headerCount = 0;
+        for (TableColumn<Line, ?> column : tableView.getColumns()) {
+            if (headerCount >= colsToSkip) {
+                clipboardString.append(column.getText()).append("\t");
+            }
+            headerCount++;
+        }
+        clipboardString.append("\n");
+
+        // Append rows
+        for (Line line : tableView.getItems()) {
+            int contentCount = 0;
+            for (TableColumn<Line, ?> column : tableView.getColumns()) {
+                if (contentCount >= colsToSkip) {
+                    clipboardString.append(column.getCellData(line)).append("\t");
+                }
+                contentCount++;
+            }
+            clipboardString.append("\n");
+        }
+
+        final ClipboardContent clipboardContent = new ClipboardContent();
+        clipboardContent.putString(clipboardString.toString());
+        Clipboard.getSystemClipboard().setContent(clipboardContent);
     }
 
     private void loadSnapshot(String fileName) throws IOException {
