@@ -18,6 +18,8 @@ import ua.dscorp.poessence.windows.MainWindowController;
 
 import java.io.*;
 import java.net.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -85,7 +87,8 @@ public class Application extends javafx.application.Application {
         stage.show();
     }
 
-    private void checkForUpdates() {
+    private void checkForUpdates() throws IOException {
+        Files.createDirectories(Paths.get(APP_DATA_FOLDER));
         File file = new File(APP_DATA_FOLDER, VERSION_FILE);
         Integer lastVersion;
         try {
