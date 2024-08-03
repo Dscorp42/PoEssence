@@ -51,6 +51,8 @@ public final class MainWindowController {
     @FXML
     public TableView<Line> tableViewCurrency;
     @FXML
+    public TableView<Line> tableViewScarabs;
+    @FXML
     public ChoiceBox<String> leagueChoiceBox;
     @FXML
     public ChoiceBox<String> snapshotChoiceBox;
@@ -98,6 +100,8 @@ public final class MainWindowController {
     public AnchorPane anchorPaneFragments;
     @FXML
     public AnchorPane anchorPaneCurrency;
+    @FXML
+    public AnchorPane anchorPaneScarabs;
 
     public ItemType itemType = ItemType.ESSENCE;
 
@@ -108,6 +112,7 @@ public final class MainWindowController {
     public static List<Line> itemsStoreFossils = new ArrayList<>();
     public static List<Line> itemsStoreFragments = new ArrayList<>();
     public static List<Line> itemsStoreCurrency = new ArrayList<>();
+    public static List<Line> itemsStoreScarabs = new ArrayList<>();
 
     // Fetch objects to shut down at finish.
     public static volatile PoeTradeLoaderTask task;
@@ -118,6 +123,7 @@ public final class MainWindowController {
     private AtomicInteger lastSizeFossils = new AtomicInteger();
     private AtomicInteger lastSizeFragments = new AtomicInteger();
     private AtomicInteger lastSizeCurrency = new AtomicInteger();
+    private AtomicInteger lastSizeScarabs = new AtomicInteger();
 
     private Map<ItemType, LocalDateTime> timeUpdated = new HashMap<>();
     private Map<ItemType, String> snapshotName = new HashMap<>();
@@ -273,6 +279,17 @@ public final class MainWindowController {
             if (snapshotName.containsKey(itemType))
                 snapshotChoiceBox.setValue(snapshotName.get(itemType));
         }
+        else if (newTab.getContent() == anchorPaneScarabs) {
+            itemType = ItemType.SCARAB;
+            tableView = tableViewScarabs;
+            itemsStore = itemsStoreScarabs;
+            lastSize = lastSizeScarabs;
+            perTableActivities();
+            if (timeUpdated.containsKey(itemType))
+                updateLastUpdated(timeUpdated.get(itemType));
+            if (snapshotName.containsKey(itemType))
+                snapshotChoiceBox.setValue(snapshotName.get(itemType));
+        }
 
     }
 
@@ -318,6 +335,12 @@ public final class MainWindowController {
         tableView = tableViewCurrency;
         itemsStore = itemsStoreCurrency;
         lastSize = lastSizeCurrency;
+        refreshInactiveTab();
+
+        itemType = ItemType.SCARAB;
+        tableView = tableViewScarabs;
+        itemsStore = itemsStoreScarabs;
+        lastSize = lastSizeScarabs;
         refreshInactiveTab();
 
         itemType = itemTypePrev;

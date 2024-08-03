@@ -66,6 +66,20 @@
                     </AnchorPane>
                 </content>
             </Tab>
+            <Tab text="Scarabs">
+                <content>
+                    <AnchorPane fx:id="anchorPaneScarabs">
+                        <children>
+                            <VBox>
+                                <children>
+                                    <TableView fx:id="tableViewScarabs" VBox.vgrow="ALWAYS">
+                                    </TableView>
+                                </children>
+                            </VBox>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
         </tabs>
     </TabPane>
     <VBox>

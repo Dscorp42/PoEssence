@@ -4,7 +4,8 @@ public enum ItemType {
     ESSENCE("Essence", "item"),
     FOSSIL("Fossil", "item"),
     FRAGMENT("Fragment", "currency"),
-    CURRENCY("Currency", "currency");
+    CURRENCY("Currency", "currency"),
+    SCARAB("Scarab", "item");
 
     private final String name;
     private final String type;
