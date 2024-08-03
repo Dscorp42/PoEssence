@@ -33,7 +33,7 @@ import static ua.dscorp.poessence.windows.MainWindowController.task;
 
 public final class PoeNinjaLoader {
 
-    private static final String DIVINE = "divine";
+    public static final String DIVINE = "divine";
     private static final String DIVINE_ORB = "divine-orb";
 
     public static ExecutorService executorService;

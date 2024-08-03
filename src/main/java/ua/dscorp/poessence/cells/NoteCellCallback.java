@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import static ua.dscorp.poessence.Application.isStyleApplied;
 
-public class TableColumnTableCellCallback implements Callback<TableColumn<Line, Void>, TableCell<Line, Void>> {
+public class NoteCellCallback implements Callback<TableColumn<Line, Void>, TableCell<Line, Void>> {
     @Override
     public TableCell<Line, Void> call(final TableColumn<Line, Void> param) {
         return new TableCell<>() {
@@ -27,7 +27,7 @@ public class TableColumnTableCellCallback implements Callback<TableColumn<Line, 
                 btn.setOnAction(event -> {
                     Line line = getTableView().getItems().get(getIndex());
                     FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("note-view.fxml"));
-                    Scene scene = null;
+                    Scene scene;
                     try {
                         Parent load = fxmlLoader.load();
                         NoteController controller = fxmlLoader.<NoteController>getController();

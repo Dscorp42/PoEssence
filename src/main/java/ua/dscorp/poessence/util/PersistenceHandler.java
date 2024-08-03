@@ -16,6 +16,7 @@ public final class PersistenceHandler {
     public static TextField thresholdPers;
     public static TextField ninjaPriceMultiplierPers;
     public static TextField minEssenceTierPers;
+    public static TextField minBulkAmountPers;
     public static CheckBox constantUpdatePers;
     public static CheckBox fastUpdatePers;
 
@@ -27,6 +28,7 @@ public final class PersistenceHandler {
         thresholdPers = mainWindow.threshold;
         ninjaPriceMultiplierPers = mainWindow.ninjaPriceMultiplier;
         minEssenceTierPers = mainWindow.minEssenceTier;
+        minBulkAmountPers = mainWindow.minBulkAmount;
         constantUpdatePers = mainWindow.constantUpdate;
         fastUpdatePers = mainWindow.fastUpdate;
 
@@ -37,6 +39,7 @@ public final class PersistenceHandler {
         mainWindow.leagueChoiceBox.setItems(FXCollections.observableArrayList("Standard", "Settlers"));
         mainWindow.leagueChoiceBox.setValue("Settlers");
         mainWindow.minEssenceTier.setText("6");
+        mainWindow.minBulkAmount.setText("10");
         mainWindow.ninjaPriceMultiplier.setText("100");
         mainWindow.threshold.setText("75");
     }

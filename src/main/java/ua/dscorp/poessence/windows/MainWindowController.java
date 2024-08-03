@@ -2,6 +2,7 @@ package ua.dscorp.poessence.windows;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ import ua.dscorp.poessence.Application;
 import ua.dscorp.poessence.data.Line;
 import ua.dscorp.poessence.loader.PoeNinjaLoader;
 import ua.dscorp.poessence.loader.PoeTradeLoaderTask;
+import ua.dscorp.poessence.util.HostServicesContainer;
 import ua.dscorp.poessence.util.ItemType;
 
 import java.io.*;
@@ -63,6 +65,8 @@ public final class MainWindowController {
     @FXML
     public TextField minEssenceTier;
     @FXML
+    public TextField minBulkAmount;
+    @FXML
     public CheckBox constantUpdate;
     @FXML
     public CheckBox fastUpdate;
@@ -76,6 +80,8 @@ public final class MainWindowController {
     public Button refreshButtonAll;
     @FXML
     public VBox mainWindow;
+    @FXML
+    public VBox settingsBox;
     @FXML
     public Label warnings;
     @FXML
@@ -113,8 +119,10 @@ public final class MainWindowController {
     private AtomicInteger lastSizeFragments = new AtomicInteger();
     private AtomicInteger lastSizeCurrency = new AtomicInteger();
 
-    Map<ItemType, LocalDateTime> timeUpdated = new HashMap<>();
-    Map<ItemType, String> snapshotName = new HashMap<>();
+    private Map<ItemType, LocalDateTime> timeUpdated = new HashMap<>();
+    private Map<ItemType, String> snapshotName = new HashMap<>();
+
+    private HostServicesContainer hostServicesContainer = new HostServicesContainer();
 
     @FXML
     public void initialize() throws IOException {
@@ -152,7 +160,7 @@ public final class MainWindowController {
         }
         preloadedTabs.add(itemType);
 
-        configureTable(tableView, threshold.getText());
+        configureTable(tableView, threshold.getText(), hostServicesContainer, leagueChoiceBox, minBulkAmount);
 
         try {
             prefillTable();
@@ -337,6 +345,31 @@ public final class MainWindowController {
     }
 
     @FXML
+    public void onShowSettingsButtonClick() {
+        isSettingsHidden = !isSettingsHidden;
+        changeSettings();
+    }
+
+    public void changeSettings() {
+        if (isSettingsHidden) {
+            hideSettings();
+        }
+        else {
+            showSettings();
+        }
+    }
+
+    private void showSettings() {
+        settingsBox.setVisible(true);
+        settingsBox.setManaged(true);
+    }
+
+    private void hideSettings() {
+        settingsBox.setVisible(false);
+        settingsBox.setManaged(false);
+    }
+
+    @FXML
     public void onSaveButtonClick() throws IOException {
         saveData();
     }
@@ -387,7 +420,7 @@ public final class MainWindowController {
     public void onCopyTableButtonClick() {
         StringBuilder clipboardString = new StringBuilder();
 
-        int colsToSkip = 2;
+        int colsToSkip = 3;
 
         int headerCount = 0;
         for (TableColumn<Line, ?> column : tableView.getColumns()) {
@@ -502,5 +535,9 @@ public final class MainWindowController {
 
     public void setKeys(Scene scene) {
         scene.setOnKeyPressed(this::handleKeyPress);
+    }
+
+    public void setHostServices(HostServices hostServices) {
+        this.hostServicesContainer.setServices(hostServices);
     }
 }

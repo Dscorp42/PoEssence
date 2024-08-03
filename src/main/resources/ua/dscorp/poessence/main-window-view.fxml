@@ -124,134 +124,154 @@
                     <Insets />
                 </VBox.margin>
             </HBox>
-            <Label fx:id="lastUpdated" text="Last updated: ">
-                <VBox.margin>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                </VBox.margin>
-            </Label>
-            <Label text="Settings">
-                <VBox.margin>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                </VBox.margin>
-            </Label>
-            <HBox prefHeight="89.0" prefWidth="851.0">
-                <children>
-                    <VBox fx:id="settings1">
-                        <children>
-                            <TextField fx:id="accountName" prefHeight="25.0" prefWidth="352.0" promptText="Account name to highlight your offers">
-                                <tooltip>
-                                    <Tooltip text="Account name to highlight your deals" />
-                                </tooltip>
-                                <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                </VBox.margin>
-                            </TextField>
-                            <TextField fx:id="ninjaPriceMultiplier" prefHeight="25.0" prefWidth="330.0" promptText="Ninja price % (Default 100%)">
-                                <tooltip>
-                                    <Tooltip text="\% change of ninja prices to see actual margins between them and bulk" />
-                                </tooltip>
-                                <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                </VBox.margin>
-                            </TextField>
-                            <TextField fx:id="threshold" prefHeight="25.0" prefWidth="436.0" promptText="Threshold for margin (75% default)">
-                                <tooltip>
-                                    <Tooltip text="If margin is higher then this percentage it will be highlighted" />
-                                </tooltip>
-                                <opaqueInsets>
-                                    <Insets />
-                                </opaqueInsets>
-                                <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                </VBox.margin>
-                            </TextField>
-                            <TextField fx:id="minEssenceTier" prefHeight="25.0" prefWidth="161.0" promptText="Minimal tier of essence">
-                                <tooltip>
-                                    <Tooltip text="To select only essences of this and higher tier from poe.ninja and trade" />
-                                </tooltip>
-                                <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                </VBox.margin>
-                            </TextField>
-                        </children>
-                    </VBox>
-                    <VBox fx:id="settings2">
-                        <children>
-                            <ChoiceBox fx:id="leagueChoiceBox" prefHeight="25.0">
-                                <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                </VBox.margin>
-                            </ChoiceBox>
-                        </children>
-                    </VBox>
-                    <VBox fx:id="settings3" alignment="TOP_RIGHT" prefWidth="250.0">
-                        <children>
-                            <ChoiceBox fx:id="snapshotChoiceBox" prefWidth="240.0">
-                                <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                </VBox.margin>
-                            </ChoiceBox>
-                            <Button mnemonicParsing="false" onAction="#onSaveButtonClick" text="Save">
-                                <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                </VBox.margin>
-                            </Button>
-                            <Button mnemonicParsing="false" onAction="#onLoadButtonClick" text="Load">
-                                <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                </VBox.margin>
-                            </Button>
-                            <Button mnemonicParsing="false" onAction="#onInvalidateButtonClick" text="Invalidate saves">
-                                <tooltip>
-                                    <Tooltip text="Moves all current snapshots to /old folder to stop them from showing here and participate in graphs creation. Can be restored manually by moving whatever snapshots you want one directory up from /snapshots/old/ to /snapshots/" />
-                                </tooltip>
-                                <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                </VBox.margin>
-                            </Button>
-                            <Button mnemonicParsing="false" onAction="#onInvalidateSelectedButtonClick" text="Invalidate one">
-                                <tooltip>
-                                    <Tooltip text="Moves current snapshot to /old folder to stop it from showing here and participate in graphs creation. Can be restored manually by moving whatever snapshots you want one directory up from /snapshots/old/ to /snapshots/" />
-                                </tooltip>
-                                <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                </VBox.margin>
-                            </Button>
-                        </children>
-                    </VBox>
-                </children>
-            </HBox>
+         <HBox>
+            <children>
+                  <Button fx:id="showSettings" mnemonicParsing="false" onAction="#onShowSettingsButtonClick" text="Show/hide settings">
+                      <HBox.margin>
+                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                      </HBox.margin>
+                  </Button>
+                  <Label fx:id="lastUpdated" text="Last updated: ">
+                  <HBox.margin>
+                     <Insets bottom="17.0" left="17.0" right="17.0" top="17.0" />
+                  </HBox.margin>
+                  </Label>
+            </children></HBox>
+         <VBox fx:id="settingsBox">
+            <children>
+                  <Label text="Settings">
+                      <VBox.margin>
+                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                      </VBox.margin>
+                  </Label>
+                  <HBox>
+                      <children>
+                          <VBox fx:id="settings1">
+                              <children>
+                                  <TextField fx:id="accountName" prefHeight="25.0" prefWidth="352.0" promptText="Account name to highlight your offers">
+                                      <tooltip>
+                                          <Tooltip text="Account name to highlight your deals" />
+                                      </tooltip>
+                                      <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                      </VBox.margin>
+                                  </TextField>
+                                  <TextField fx:id="ninjaPriceMultiplier" prefHeight="25.0" prefWidth="330.0" promptText="Ninja price % (Default 100%)">
+                                      <tooltip>
+                                          <Tooltip text="\% change of ninja prices to see actual margins between them and bulk" />
+                                      </tooltip>
+                                      <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                      </VBox.margin>
+                                  </TextField>
+                                  <TextField fx:id="threshold" prefHeight="25.0" prefWidth="436.0" promptText="Threshold for margin (75% default)">
+                                      <tooltip>
+                                          <Tooltip text="If margin is higher then this percentage it will be highlighted" />
+                                      </tooltip>
+                                      <opaqueInsets>
+                                          <Insets />
+                                      </opaqueInsets>
+                                      <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                      </VBox.margin>
+                                  </TextField>
+                                  <TextField fx:id="minEssenceTier" prefHeight="25.0" prefWidth="161.0" promptText="Minimal tier of essence">
+                                      <tooltip>
+                                          <Tooltip text="To select only essences of this and higher tier from poe.ninja and trade" />
+                                      </tooltip>
+                                      <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                      </VBox.margin>
+                                  </TextField>
+                                  <TextField fx:id="minBulkAmount" prefHeight="25.0" prefWidth="161.0" promptText="Minimal amount of items in bulk">
+                                      <tooltip>
+                                          <Tooltip text="To show only those trade offers that contains at least this amount of items" />
+                                      </tooltip>
+                                      <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                      </VBox.margin>
+                                  </TextField>
+                              </children>
+                          </VBox>
+                          <VBox fx:id="settings2">
+                              <children>
+                                  <ChoiceBox fx:id="leagueChoiceBox" prefHeight="25.0">
+                                      <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                      </VBox.margin>
+                                  </ChoiceBox>
+                              </children>
+                          </VBox>
+                          <VBox fx:id="settings3" alignment="TOP_RIGHT" prefWidth="250.0">
+                              <children>
+                                  <ChoiceBox fx:id="snapshotChoiceBox" prefWidth="240.0">
+                                      <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                      </VBox.margin>
+                                  </ChoiceBox>
+                                  <Button mnemonicParsing="false" onAction="#onSaveButtonClick" text="Save">
+                                      <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                      </VBox.margin>
+                                  </Button>
+                                  <Button mnemonicParsing="false" onAction="#onLoadButtonClick" text="Load">
+                                      <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                      </VBox.margin>
+                                  </Button>
+                                  <Button mnemonicParsing="false" onAction="#onInvalidateButtonClick" text="Invalidate saves">
+                                      <tooltip>
+                                          <Tooltip text="Moves all current snapshots to /old folder to stop them from showing here and participate in graphs creation. Can be restored manually by moving whatever snapshots you want one directory up from /snapshots/old/ to /snapshots/" />
+                                      </tooltip>
+                                      <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                      </VBox.margin>
+                                  </Button>
+                                  <Button mnemonicParsing="false" onAction="#onInvalidateSelectedButtonClick" text="Invalidate one">
+                                      <tooltip>
+                                          <Tooltip text="Moves current snapshot to /old folder to stop it from showing here and participate in graphs creation. Can be restored manually by moving whatever snapshots you want one directory up from /snapshots/old/ to /snapshots/" />
+                                      </tooltip>
+                                      <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                      </VBox.margin>
+                                  </Button>
+                              </children>
+                          </VBox>
+                      </children>
+                  </HBox>
+                <HBox>
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#onGraphsClick" prefHeight="25.0" prefWidth="189.0" text="Graphs">
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#onAboutClick" text="About">
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#onStyleButtonClick" text="Style">
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </Button>
+                     <Button mnemonicParsing="false" onAction="#onCopyTableButtonClick" text="Copy table">
+                        <HBox.margin>
+                           <Insets bottom="10.0" left="50.0" right="10.0" top="10.0" />
+                        </HBox.margin>
+                     </Button>
+                        <TextField fx:id="POESESSID" prefHeight="25.0" prefWidth="352.0" promptText="Cookie from browser (currently won't speed up anything)" visible="false">
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </TextField>
+                    </children>
+                </HBox>
+                <Label fx:id="warnings" prefHeight="17.0" prefWidth="805.0" text="           " />
+                <Label fx:id="warnings2" prefHeight="17.0" prefWidth="805.0" text="           " />
+            </children>
+         </VBox>
         </children>
     </VBox>
-    <HBox prefHeight="100.0" prefWidth="200.0">
-        <children>
-            <Button mnemonicParsing="false" onAction="#onGraphsClick" prefHeight="25.0" prefWidth="189.0" text="Graphs">
-                <HBox.margin>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#onAboutClick" text="About">
-                <HBox.margin>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#onStyleButtonClick" text="Style">
-                <HBox.margin>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                </HBox.margin>
-            </Button>
-         <Button mnemonicParsing="false" onAction="#onCopyTableButtonClick"  text="Copy table">
-            <HBox.margin>
-               <Insets bottom="10.0" left="50.0" right="10.0" top="10.0" />
-            </HBox.margin>
-         </Button>
-            <TextField fx:id="POESESSID" prefHeight="25.0" prefWidth="352.0" promptText="Cookie from browser (currently won't speed up anything)" visible="false">
-                <HBox.margin>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                </HBox.margin>
-            </TextField>
-        </children>
-    </HBox>
-    <Label fx:id="warnings" prefHeight="17.0" prefWidth="805.0" text="           " />
-    <Label fx:id="warnings2" prefHeight="17.0" prefWidth="805.0" text="           " />
 </VBox>

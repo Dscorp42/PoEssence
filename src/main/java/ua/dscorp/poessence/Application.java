@@ -43,6 +43,7 @@ public class Application extends javafx.application.Application {
     private ScheduledExecutorService scheduler;
 
     public static boolean isStyleApplied = false;
+    public static boolean isSettingsHidden = false;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -67,7 +68,10 @@ public class Application extends javafx.application.Application {
             scene.getStylesheets().add(getClass().getResource("/ua/dscorp/poessence/styles.css").toExternalForm());
         }
 
+        controller.changeSettings();
+
         controller.setKeys(scene);
+        controller.setHostServices(getHostServices());
         stage.setTitle(TOOL_NAME);
         stage.setScene(scene);
         stage.setMaximized(true);
@@ -206,7 +210,6 @@ public class Application extends javafx.application.Application {
         }
     }
 
-
     @Override
     public void stop() throws IOException {
         System.out.println("Shutting down, saving settings.");
@@ -220,9 +223,10 @@ public class Application extends javafx.application.Application {
             scheduler.shutdown();
         }
         savePresets();
-        if (AdminCheck.isRunningAsAdmin())
+        if (AdminCheck.isRunningAsAdmin()) {
             System.out.println("Force stop.");
             shutdownAll();
+        }
     }
 
     private void shutdownAll() throws IOException {
@@ -251,9 +255,11 @@ public class Application extends javafx.application.Application {
         PersistenceHandler.thresholdPers.setText(prefsMap.get("threshold"));
         PersistenceHandler.ninjaPriceMultiplierPers.setText(prefsMap.get("ninjaPriceMultiplier"));
         PersistenceHandler.minEssenceTierPers.setText(prefsMap.get("minEssenceTier"));
+        PersistenceHandler.minBulkAmountPers.setText(prefsMap.get("minBulkAmount"));
         PersistenceHandler.constantUpdatePers.setSelected(Boolean.parseBoolean(prefsMap.get("constantUpdate")));
         PersistenceHandler.fastUpdatePers.setSelected(Boolean.parseBoolean(prefsMap.get("fastUpdate")));
         isStyleApplied = Boolean.parseBoolean(prefsMap.get("isStyleApplied"));
+        isSettingsHidden = Boolean.parseBoolean(prefsMap.get("isSettingsHidden"));
     }
 
     private void savePresets() throws IOException {
@@ -263,9 +269,11 @@ public class Application extends javafx.application.Application {
                 + ";threshold=" + PersistenceHandler.thresholdPers.getText()
                 + ";ninjaPriceMultiplier=" + PersistenceHandler.ninjaPriceMultiplierPers.getText()
                 + ";minEssenceTier=" + PersistenceHandler.minEssenceTierPers.getText()
+                + ";minBulkAmount=" + PersistenceHandler.minBulkAmountPers.getText()
                 + ";constantUpdate=" + PersistenceHandler.constantUpdatePers.isSelected()
                 + ";fastUpdate=" + PersistenceHandler.fastUpdatePers.isSelected()
-                + ";isStyleApplied=" + isStyleApplied;
+                + ";isStyleApplied=" + isStyleApplied
+                + ";isSettingsHidden=" + isSettingsHidden;
         File file = new File(APP_DATA_FOLDER, SETTINGS_FILE);
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(file, prefs);

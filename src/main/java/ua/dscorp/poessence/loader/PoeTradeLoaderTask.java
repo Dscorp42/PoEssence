@@ -3,7 +3,6 @@ package ua.dscorp.poessence.loader;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import ua.dscorp.poessence.windows.MainWindowController;
-import ua.dscorp.poessence.data.BulkItem;
 import ua.dscorp.poessence.data.Line;
 
 import java.io.BufferedReader;
@@ -141,12 +140,12 @@ public class PoeTradeLoaderTask extends Task<List<Line>> {
         String url = "https://www.pathofexile.com/api/trade/exchange/" + mainWindowController.leagueChoiceBox.getValue();
 
         String jsonInputString =
-                "{\"query\":{\"status\":{\"option\":\"online\"},\"have\":[\"divine\"],\"want\":[\""
+                "{\"query\":{\"status\":{\"option\":\"online\"},\"have\":[\"chaos\",\"divine\"],\"want\":[\""
                         + detailsId
                         + "\"],\"stock\":{\"min\":null,\"max\":null}},\"sort\":{\"have\":\"asc\"},\"engine\":\"new\"}";
 
         try {
-            HttpURLConnection connection = getHttpURLConnection(url, jsonInputString);
+            HttpURLConnection connection = getHttpURLConnection(url, jsonInputString, mainWindowController.POESESSID.getText());
 
             int responseCode = connection.getResponseCode();
 
@@ -208,7 +207,7 @@ public class PoeTradeLoaderTask extends Task<List<Line>> {
                     while ((inputLine = in.readLine()) != null) {
                         response.append(inputLine);
                     }
-                    PoeTradeParser.parseResult(response.toString(), mainWindowController.accountName.getText(), item);
+                    PoeTradeParser.parseResult(response.toString(), mainWindowController.accountName.getText(), item, Integer.parseInt(mainWindowController.minBulkAmount.getText()));
                     System.out.println("delayBetweenRequests: " + delayBetweenRequests);
                 }
             }
@@ -276,14 +275,14 @@ public class PoeTradeLoaderTask extends Task<List<Line>> {
         });
     }
 
-    private HttpURLConnection getHttpURLConnection(String url, String jsonInputString) throws IOException {
+    public static HttpURLConnection getHttpURLConnection(String url, String jsonInputString, String ssid) throws IOException {
         URL urlObj = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) urlObj.openConnection();
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/json; utf-8");
         connection.setRequestProperty("Accept", "application/json");
         connection.setRequestProperty("User-Agent", "gladushdima@gmail.com");
-        connection.setRequestProperty("Cookie", "POESESSID=" + mainWindowController.POESESSID.getText());
+        connection.setRequestProperty("Cookie", "POESESSID=" + ssid);
         connection.setDoOutput(true);
 
         try (OutputStream os = connection.getOutputStream()) {

@@ -13,6 +13,7 @@ public class Line {
     private String icon;
     private String mapTier;
     private List<BulkItem> bulkItems;
+    private List<BulkItem> bulkChaosItems;
     private int ninjaPriceMultiplier = 100;
     private int stackSize;
     private String offers;
@@ -122,5 +123,13 @@ public class Line {
                 ", chaosValue=" + chaosValue +
                 ", divineValue=" + divineValue +
                 '}';
+    }
+
+    public List<BulkItem> getBulkChaosItems() {
+        return bulkChaosItems;
+    }
+
+    public void setBulkChaosItems(List<BulkItem> bulkChaosItems) {
+        this.bulkChaosItems = bulkChaosItems;
     }
 }

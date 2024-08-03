@@ -2,15 +2,10 @@ package ua.dscorp.poessence.util;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
-import ua.dscorp.poessence.cells.BulkItemNameCell;
-import ua.dscorp.poessence.cells.DiffCell;
-import ua.dscorp.poessence.cells.IconTableCell;
-import ua.dscorp.poessence.cells.TableColumnTableCellCallback;
+import ua.dscorp.poessence.cells.*;
 import ua.dscorp.poessence.data.BulkItem;
 import ua.dscorp.poessence.data.Line;
 
@@ -25,7 +20,8 @@ public final class TableConfigurator {
 
     public static final int DEFAULT_THRESOLD = 75;
 
-    public static void configureTable(TableView<Line> tableView, String threshold) {
+    public static void configureTable(TableView<Line> tableView, String threshold, HostServicesContainer hostServices,
+                                      ChoiceBox<String> leagueChoiceBox, TextField minBulkAmount) {
         TableColumn<Line, String> iconColumn = new TableColumn<>("Icon");
         iconColumn.setPrefWidth(30);
         iconColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIcon()));
@@ -34,8 +30,13 @@ public final class TableConfigurator {
         // Create a column with a button in each cell
         TableColumn<Line, Void> actionColumn = new TableColumn<>("Note");
         actionColumn.setPrefWidth(60);
-        Callback<TableColumn<Line, Void>, TableCell<Line, Void>> cellFactory = new TableColumnTableCellCallback();
+        Callback<TableColumn<Line, Void>, TableCell<Line, Void>> cellFactory = new NoteCellCallback();
         actionColumn.setCellFactory(cellFactory);
+
+        TableColumn<Line, Void> linkColumn = new TableColumn<>("Link");
+        linkColumn.setPrefWidth(40);
+        Callback<TableColumn<Line, Void>, TableCell<Line, Void>> cellFactory2 = new LinkCellCallback(hostServices, leagueChoiceBox, minBulkAmount);
+        linkColumn.setCellFactory(cellFactory2);
 
         TableColumn<Line, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setPrefWidth(220);
@@ -109,7 +110,40 @@ public final class TableConfigurator {
         });
         diffValueColumn.setCellFactory(a -> new DiffCell(parseOrElse(threshold, DEFAULT_THRESOLD)));
 
+        TableColumn<Line, String> chaosDivBulkValueColumn = new TableColumn<>("Bulk Chaos->Div");
+
+        chaosDivBulkValueColumn.setCellValueFactory(cellData -> {
+            float divCost = cellData.getValue().getChaosValue() / cellData.getValue().getDivineValue();
+            List<BulkItem> bulkItems = cellData.getValue().getBulkChaosItems();
+            if (bulkItems != null && !bulkItems.isEmpty()) {
+                String res = BigDecimal.valueOf((bulkItems.getFirst().getExchangeAmount()
+                        / bulkItems.getFirst().getItemAmount()) / divCost).setScale(5, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString();
+
+                return new SimpleStringProperty(res);
+            } else {
+                return new SimpleStringProperty("");
+            }
+        });
+
+        TableColumn<Line, Double> diffChaosDivValueColumn = new TableColumn<>("Diff Bulk D/C %");
+
+        diffChaosDivValueColumn.setCellValueFactory(cellData -> {
+            List<BulkItem> bulkItems = cellData.getValue().getBulkItems();
+            List<BulkItem> bulkChaosItems = cellData.getValue().getBulkChaosItems();
+            float divCost = cellData.getValue().getChaosValue() / cellData.getValue().getDivineValue();
+            if (bulkItems != null && !bulkItems.isEmpty()) {
+                double res = ((bulkItems.getFirst().getExchangeAmount() / bulkItems.getFirst().getItemAmount()) / ((bulkChaosItems.getFirst().getExchangeAmount()
+                        / bulkChaosItems.getFirst().getItemAmount()) / divCost)) * 100 - 100;
+
+                return new SimpleDoubleProperty(res).asObject();
+            } else {
+                return new SimpleDoubleProperty(0).asObject();
+            }
+        });
+        diffChaosDivValueColumn.setCellFactory(a -> new DiffCell(parseOrElse(threshold, DEFAULT_THRESOLD)));
+
         tableView.getColumns().add(iconColumn);
+        tableView.getColumns().add(linkColumn);
         tableView.getColumns().add(actionColumn);
         tableView.getColumns().add(nameColumn);
         tableView.getColumns().add(chaosValueColumn);
@@ -117,6 +151,8 @@ public final class TableConfigurator {
         tableView.getColumns().add(divineBulkValueColumn);
         tableView.getColumns().add(divineStackValueColumn);
         tableView.getColumns().add(diffValueColumn);
+        tableView.getColumns().add(chaosDivBulkValueColumn);
+        tableView.getColumns().add(diffChaosDivValueColumn);
 
         // Add bulk item columns
         for (int i = 0; i < MAX_RESULTS; i++) {

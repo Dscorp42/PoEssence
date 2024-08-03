@@ -10,13 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static ua.dscorp.poessence.loader.PoeNinjaLoader.DIVINE;
+
 public class PoeTradeParser {
 
-    public static final int MAX_RESULTS = 7;
+    public static final int MAX_RESULTS = 6;
 
-    public static void parseResult(String json, String currentAccountName, Line item) {
+    public static void parseResult(String json, String currentAccountName, Line item, int minAmount) {
 
         List<BulkItem> items = new ArrayList<>();
+        List<BulkItem> chaosItems = new ArrayList<>();
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             Result result = objectMapper.readValue(json, Result.class);
@@ -29,13 +32,15 @@ public class PoeTradeParser {
                 for (Offer offer : entry.getListing().getOffers()) {
                     double exchangeAmount = offer.getExchange().getAmount();
                     int itemAmount = offer.getItem().getAmount();
+                    if (itemAmount < minAmount) {
+                        continue;
+                    }
                     int stock = offer.getItem().getStock();
 
-                    if (items.size() < MAX_RESULTS) {
-                        items.add(new BulkItem(name, status, currentAccountName, exchangeAmount, itemAmount, stock));
-                    }
-                    else {
-                        break;
+                    List<BulkItem> itemsToUpdate = getListToUpdate(items, chaosItems, offer.getExchange());
+
+                    if (itemsToUpdate.size() < MAX_RESULTS) {
+                        itemsToUpdate.add(new BulkItem(name, status, currentAccountName, exchangeAmount, itemAmount, stock));
                     }
                 }
             }
@@ -43,6 +48,11 @@ public class PoeTradeParser {
             System.out.println("Poe trade parse failed: " + e.getMessage());
         }
         item.setBulkItems(items);
+        item.setBulkChaosItems(chaosItems);
+    }
+
+    private static List<BulkItem> getListToUpdate(List<BulkItem> items, List<BulkItem> chaosItems, Exchange exchange) {
+        return exchange.getCurrency().equals(DIVINE) ? items : chaosItems;
     }
 
     // Class for the Exchange info
@@ -290,8 +300,17 @@ public class PoeTradeParser {
     // Class for the Main Result
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Result {
+        private String id;
         private List<ResultEntry> results;
         private String total;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
 
         @JsonProperty("result")
         public void unpackNestedResults(Map<String, ResultEntry> resultsMap) {
