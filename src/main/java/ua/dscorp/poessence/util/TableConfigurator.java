@@ -131,7 +131,7 @@ public final class TableConfigurator {
             List<BulkItem> bulkItems = cellData.getValue().getBulkItems();
             List<BulkItem> bulkChaosItems = cellData.getValue().getBulkChaosItems();
             float divCost = cellData.getValue().getChaosValue() / cellData.getValue().getDivineValue();
-            if (bulkItems != null && !bulkItems.isEmpty()) {
+            if (bulkItems != null && !bulkItems.isEmpty() && bulkChaosItems != null && !bulkChaosItems.isEmpty()) {
                 double res = ((bulkItems.getFirst().getExchangeAmount() / bulkItems.getFirst().getItemAmount()) / ((bulkChaosItems.getFirst().getExchangeAmount()
                         / bulkChaosItems.getFirst().getItemAmount()) / divCost)) * 100 - 100;
 
