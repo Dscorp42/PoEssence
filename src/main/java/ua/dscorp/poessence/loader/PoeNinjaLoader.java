@@ -104,6 +104,9 @@ public final class PoeNinjaLoader {
                 List<Line> itemsFiltered = new ArrayList<>();
                 for (Line line : items) {
                     try {
+                        if (line.isEmptyNinjaSparkLine()) {
+                            continue;
+                        }
                         if (line.getMapTier() == null
                                 || mainWindowController.minEssenceTier.getText().isEmpty()
                                 || Integer.parseInt(line.getMapTier()) >= Integer.parseInt(mainWindowController.minEssenceTier.getText())) {

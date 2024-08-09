@@ -1,6 +1,6 @@
 <body style='background-color: #151515; color: #e7c697; font-family: Fontin;'>
 
-# PoEssence
+# PoEssence v15 (09/08/2024)
 
 **PoEssence** is a powerful tool that combines information from [poe.ninja](https://poe.ninja) and [pathofexile.com/trade](https://pathofexile.com/trade) to facilitate bulk item exchanges in Path of Exile.
 

@@ -17,6 +17,7 @@ public class Line {
     private int ninjaPriceMultiplier = 100;
     private int stackSize;
     private String offers;
+    private SparkLine sparkline;
 
     // Getters and Setters
     public String getName() {
@@ -131,5 +132,27 @@ public class Line {
 
     public void setBulkChaosItems(List<BulkItem> bulkChaosItems) {
         this.bulkChaosItems = bulkChaosItems;
+    }
+
+    public boolean isEmptyNinjaSparkLine() {
+        return sparkline.getData().isEmpty();
+    }
+
+    public SparkLine getSparkline() {
+        return sparkline;
+    }
+
+    public void setSparkline(SparkLine sparkline) {
+        if (this.sparkline == null)
+            this.sparkline = sparkline;
+    }
+
+    public SparkLine getReceiveSparkLine() {
+        return sparkline;
+    }
+
+    public void setReceiveSparkLine(SparkLine sparkline) {
+        if (this.sparkline == null)
+            this.sparkline = sparkline;
     }
 }
